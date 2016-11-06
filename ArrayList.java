@@ -23,20 +23,7 @@ public class ArrayList implements List{
 
     @Override
 	public ReturnObject get(int index){
-        ErrorMessage error = ErrorMessage.NO_ERROR;
-        Object returnObject = null;
-
-        if(index == 0){
-            error = ErrorMessage.EMPTY_STRUCTURE;
-        } 
-        else if(index >= this.size || index < 0){
-            error = ErrorMessage.INDEX_OUT_OF_BOUNDS;
-        }
-        else{
-            returnObject = arr[index];
-        }
-
-        return new ReturnObjectImpl(returnObject, error);        
+        return retrieveObjectFromIndex(index);      
     }
 
 	/**
@@ -52,8 +39,39 @@ public class ArrayList implements List{
 	 *         encapsulated in a ReturnObject
 	 */
     @Override
-	public ReturnObject remove(int index){
-        
+	public ReturnObject remove(int index){        
+        ReturnObject object = retrieveObjectFromIndex(index);
+
+        if(!object.hasError()){
+            removeObjectFromIndex(index);
+            this.size--;
+        }
+
+        return object;
+    }
+
+    private void removeObjectFromIndex(int index){
+        Object[] newArr = new Object[this.arr.length];
+        copyArrayTo(this.arr, newArr, index);
+        copyArrayFromRemoval(this.arr, newArr, index);
+        this.arr = newArr;
+    }
+
+    private ReturnObject retrieveObjectFromIndex(int index){
+        ErrorMessage error = ErrorMessage.NO_ERROR;
+        Object returnObject = null;
+
+        if(index == 0){
+            error = ErrorMessage.EMPTY_STRUCTURE;
+        } 
+        else if(index >= this.size || index < 0){
+            error = ErrorMessage.INDEX_OUT_OF_BOUNDS;
+        }
+        else{
+            returnObject = this.arr[index];
+        }
+
+        return new ReturnObjectImpl(returnObject, error);
     }
 
 	/**
@@ -76,49 +94,75 @@ public class ArrayList implements List{
 	 */
     @Override
 	public ReturnObject add(int index, Object item){
+
+        if(item == null)
+            return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
+
+        if(index >= this.size || index < 0)
+            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+        
         verifyArraySize();
-        this.size++;
-       
+        insertArrayElementAt(index, item);
+        this.size++;    
+
+        return new ReturnObjectImpl(null, null);
     }
 
-    /**
-	 * Adds an element at the end of the list.
-	 * 
-	 * If a null object is provided to insert in the list, the
-	 * request must be ignored and an appropriate error must be
-	 * returned.
-	 * 
-	 * @param item the value to insert into the list
-	 * @return an ReturnObject, empty if the operation is successful
-	 *         or containing an appropriate error message otherwise
-	 */
+    private void insertArrayElementAt(int index, Object item){        
+        Object[] newArr = new Object[this.arr.length];
+        copyArrayTo(this.arr, newArr, index);
+        newArr[index] = item;
+        copyArrayFromInsertion(this.arr, newArr, index);
+        this.arr = newArr;
+    }
+
+    
     @Override
 	public ReturnObject add(Object item){
         verifyArraySize();
         this.arr[this.size] = item;
         this.size++;
+
+        return new ReturnObjectImpl(null, null);
     }
 
     private void verifyArraySize(){
-        if(arr.length < size + 1)
+        if(this.arr.length < this.size + 1)
             expandArraySize();
     }
 
     private void expandArraySize(){
         Object[] newArr = new Object[(this.arr.length * 2)];
-        copyArray(this.arr, newArr, 0, 0);
+        copyArray(this.arr, newArr);
         this.arr = newArr;
     }
     
-    private void copyArray(Object[] source, Object[] destination, int startIndex, int offset){
-        //write null values for all non copied values
-        for(int i = startIndex; i < destination.length; i++){
-            destination[i+offset] = getArrayCopyWriteValue(source, i);
+    private void copyArray(Object[] source, Object[] destination){
+        for(int i = 0; i < destination.length; i++){
+            destination[i] = getArrayCopyWriteValue(source, i);
+        }
+    }
+
+    private void copyArrayTo(Object[] source, Object[] destination, int stopIndex){
+        for(int i = 0; i < destination.length && i <= stopIndex; i++){
+            destination[i] = getArrayCopyWriteValue(source, i);
+        }
+    }
+
+    private void copyArrayFromRemoval(Object[] source, Object[] destination, int removalIndex){
+        for(int i = removalIndex; i < destination.length; i++){
+            destination[i] = getArrayCopyWriteValue(source, i+1);
+        }
+    }
+
+    private void copyArrayFromInsertion(Object[] source, Object[] destination, int insertionIndex){
+        for(int i = insertionIndex+1; i < destination.length; i++){
+            destination[i] = getArrayCopyWriteValue(source, i-1);
         }
     }
 
     private Object getArrayCopyWriteValue(Object[] source, int index){
-        return index < source.length ? source[index] : null;
+        return (index < source.length && index >= 0) ? source[index] : null;
     }
 
     @Override
@@ -127,6 +171,8 @@ public class ArrayList implements List{
         for(int i = 0; i < this.size; i++){
             output += getStringValue(this.arr, i);
         }
+
+        return output;
     }
 
     private String getStringValue(Object[] arr, int index){
