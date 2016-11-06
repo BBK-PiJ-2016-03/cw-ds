@@ -53,7 +53,7 @@ public class ArrayList implements List{
 	 */
     @Override
 	public ReturnObject remove(int index){
-
+        
     }
 
 	/**
@@ -106,11 +106,11 @@ public class ArrayList implements List{
 
     private void expandArraySize(){
         Object[] newArr = new Object[(this.arr.length * 2)];
-        copyArray(this.arr, newArr);
+        copyArray(this.arr, newArr, 0, 0);
         this.arr = newArr;
     }
     
-    private void copyArray(Object[] source, Object[] destination, int startIndex = 0, int offset = 0){
+    private void copyArray(Object[] source, Object[] destination, int startIndex, int offset){
         //write null values for all non copied values
         for(int i = startIndex; i < destination.length; i++){
             destination[i+offset] = getArrayCopyWriteValue(source, i);
@@ -130,8 +130,8 @@ public class ArrayList implements List{
     }
 
     private String getStringValue(Object[] arr, int index){
-        if(arr[i] != null)
-            return arr[i]+"\n";
+        if(arr[index] != null)
+            return arr[index]+"\n";
 
         return "";
     }
