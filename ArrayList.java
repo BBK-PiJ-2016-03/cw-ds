@@ -4,7 +4,7 @@ public class ArrayList implements List{
     private Object[] arr;
 
     public ArrayList(){
-        ArrayList(5);
+        this(5);
     }
 
     public ArrayList(int startingSize){
@@ -105,7 +105,7 @@ public class ArrayList implements List{
     }
 
     private void expandArraySize(){
-        Object[] newArr = new Object[(this.arr.length * 2)]
+        Object[] newArr = new Object[(this.arr.length * 2)];
         copyArray(this.arr, newArr);
         this.arr = newArr;
     }

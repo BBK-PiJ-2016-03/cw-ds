@@ -4,7 +4,7 @@ public class ReturnObjectImpl implements ReturnObject{
     private Object returnObject;
 
     public ReturnObjectImpl(Object returnObject){
-        ReturnObjectImpl(returnObject, null);
+        this(returnObject, null);
     }
 
     public ReturnObjectImpl(Object returnObject, ErrorMessage errorMessage){        
