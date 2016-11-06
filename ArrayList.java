@@ -61,7 +61,7 @@ public class ArrayList implements List{
         ErrorMessage error = ErrorMessage.NO_ERROR;
         Object returnObject = null;
 
-        if(index == 0){
+        if(this.size == 0){
             error = ErrorMessage.EMPTY_STRUCTURE;
         } 
         else if(index >= this.size || index < 0){
@@ -177,7 +177,7 @@ public class ArrayList implements List{
 
     private String getStringValue(Object[] arr, int index){
         if(arr[index] != null)
-            return arr[index]+"\n";
+            return arr[index].toString()+"\n";
 
         return "";
     }

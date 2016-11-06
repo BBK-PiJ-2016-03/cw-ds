@@ -9,7 +9,7 @@ public class Tests{
     private void arrayListTests(){
         List list = new ArrayList();
 
-        System.out.println("--------\nNew ArrayList");
+        System.out.println("----------\nNew ArrayList");
         System.out.println("size: " + list.size());
         list.add(1);
         list.add(2);
@@ -36,6 +36,37 @@ public class Tests{
         System.out.println("Added 21 ints... ");
         System.out.println("size: " + list.size());
 
+        System.out.println(list.toString());
+
+        System.out.println("----------");
+        System.out.println("Removing 5 from the beginning... ");
+        ReturnObject ret = list.remove(0);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.remove(0);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.remove(0);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.remove(0);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.remove(0);
+        if(ret.hasError()) System.out.println(ret.getError());
+        System.out.println("size: " + list.size());
+        System.out.println(list.toString());
+
+        System.out.println("----------");
+        System.out.println("Inserting 1-5 at index 5... ");
+        ret = list.add(1,5);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.add(2,5);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.add(3,5);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.add(4,5);
+        if(ret.hasError()) System.out.println(ret.getError());
+        ret = list.add(5,5);
+        if(ret.hasError()) System.out.println(ret.getError());
+        System.out.println("size: " + list.size());
+        System.out.println(list.toString());
 
     }
 }
