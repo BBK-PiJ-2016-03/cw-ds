@@ -2,6 +2,7 @@ public class ArrayList implements List{
 
     private int size = 0;
     private Object[] arr;
+    private final int MAX_ARRAY_SIZE = 2147483639 - 8;
 
     public ArrayList(){
         this(5);
@@ -9,6 +10,10 @@ public class ArrayList implements List{
 
     public ArrayList(int startingSize){
         this.arr = new Object[startingSize];
+    }
+
+    public int getArraySize(){
+        return this.arr.length;
     }
     
     @Override
@@ -132,31 +137,37 @@ public class ArrayList implements List{
     }
 
     private void expandArraySize(){
-        Object[] newArr = new Object[(this.arr.length * 2)];
-        copyArray(this.arr, newArr);
-        this.arr = newArr;
+        int newArrSize = this.arr.length * 2;
+        if(newArrSize > MAX_ARRAY_SIZE)
+            newArrSize = MAX_ARRAY_SIZE;
+
+        if(newArrSize > this.arr.length){
+            Object[] newArr = new Object[newArrSize];
+            copyArray(this.arr, newArr);
+            this.arr = newArr;
+        }
     }
     
     private void copyArray(Object[] source, Object[] destination){
-        for(int i = 0; i < destination.length; i++){
+        for(int i = 0; i < source.length; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
         }
     }
 
     private void copyArrayTo(Object[] source, Object[] destination, int stopIndex){
-        for(int i = 0; i < destination.length && i <= stopIndex; i++){
+        for(int i = 0; i < source.length && i <= stopIndex; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
         }
     }
 
     private void copyArrayFromRemoval(Object[] source, Object[] destination, int removalIndex){
-        for(int i = removalIndex; i < destination.length; i++){
+        for(int i = removalIndex; i < source.length; i++){
             destination[i] = getArrayCopyWriteValue(source, i+1);
         }
     }
 
     private void copyArrayFromInsertion(Object[] source, Object[] destination, int insertionIndex){
-        for(int i = insertionIndex+1; i < destination.length; i++){
+        for(int i = insertionIndex+1; i < source.length; i++){
             destination[i] = getArrayCopyWriteValue(source, i-1);
         }
     }
