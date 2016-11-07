@@ -121,7 +121,7 @@ public class Tests{
         assertEquals(true, list.isEmpty(), "isEmpty after removing all elements. "+count+" elements removed");
 
         //max test 2 147 483 639
-        for(int i = 1; i <= 2147483639; i++){
+        for(int i = 1; i <= Integer.MAX_VALUE - 10; i++){
             list.add(1);
             if(i % 100000 == 0)
                 System.out.println("iteration: " + i + " array size: " + list.getArraySize());

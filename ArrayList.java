@@ -2,7 +2,7 @@ public class ArrayList implements List{
 
     private int size = 0;
     private Object[] arr;
-    private final int MAX_ARRAY_SIZE = 2147483639 - 8;
+    private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 10000;
 
     public ArrayList(){
         this(5);
