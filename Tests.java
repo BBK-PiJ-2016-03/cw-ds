@@ -52,8 +52,10 @@ public class Tests{
         int size = list.size();
         Object value = list.get(0).getReturnValue();
 
+        size--;
+
         ret = list.remove(0);
-        boolean t1 = assertEquals(size-1, list.size(), "Size reduced by 1");
+        boolean t1 = assertEquals(size, list.size(), "Size reduced by 1");
         boolean t2 = assertEquals(false, ret.hasError(), "Element removed without error");
         boolean t3 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR");
         boolean t4 = assertEquals(value, ret.getReturnValue(), "Returned value matches the value at index");
