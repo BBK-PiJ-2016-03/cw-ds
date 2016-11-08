@@ -79,24 +79,7 @@ public class ArrayList implements List{
         return new ReturnObjectImpl(returnObject, error);
     }
 
-	/**
-	 * Adds an element to the list, inserting it at the given
-	 * position. The indeces of elements at and after that position
-	 * must be updated accordignly.
-	 * 
-	 * If the index is negative or greater or equal than the size of
-	 * the list, then an appropriate error must be returned.
-	 * 
-	 * If a null object is provided to insert in the list, the
-	 * request must be ignored and an appropriate error must be
-	 * returned.
-	 * 
-	 * @param index the position at which the item should be inserted in
-	 *              the list
-	 * @param item the value to insert into the list
-	 * @return an ReturnObject, empty if the operation is successful
-	 *         or containing an appropriate error message otherwise
-	 */
+	
     @Override
 	public ReturnObject add(int index, Object item){
 
@@ -124,6 +107,11 @@ public class ArrayList implements List{
     
     @Override
 	public ReturnObject add(Object item){
+
+        if(item == null)
+            return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
+
+
         verifyArraySize();
         this.arr[this.size] = item;
         this.size++;

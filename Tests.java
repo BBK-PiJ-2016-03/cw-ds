@@ -45,6 +45,7 @@ public class Tests{
     }
 
     private boolean testRemove(List list){
+        System.out.println("----test remove()-----");
         ReturnObject ret = null;
         populateList(list);
 
@@ -73,6 +74,7 @@ public class Tests{
     }
 
     private boolean testInsert(List list){
+        System.out.println("----test add(index, value)-----");
         ReturnObject ret = null;
 
         ret = list.add(-1, 1);
@@ -100,6 +102,7 @@ public class Tests{
     }
 
     private boolean testAdd(List list){
+        System.out.println("----test add(value)-----");
         ReturnObject ret = null;
 
         ret = list.add(1);
@@ -120,6 +123,7 @@ public class Tests{
     }
 
     private boolean testIsEmpty(List list){
+        System.out.println("----test isEmpty()-----");
         boolean t1 = assertEquals(true, list.isEmpty(), "isEmpty at initialisation");
         populateList(list);
         boolean t2 = assertEquals(false, list.isEmpty(), "isEmpty false when filled");
@@ -129,6 +133,7 @@ public class Tests{
     }
 
     private boolean testSize(List list){
+        System.out.println("----test size()-----");
         boolean t1 = assertEquals(0, list.size(), "Size 0");
         populateList(list);
         boolean t2 = assertEquals(100, list.size(), "Size 100");
@@ -138,8 +143,9 @@ public class Tests{
     }
 
     private boolean testGet(List list){
+        System.out.println("----test get()-----");
+
         ReturnObject ret = null;
-        System.out.println("----New ArrayList");            
 
         ret = list.get(-1);
         boolean t1 = assertEquals(true, ret.hasError(), "Element retrieved at index -1 with error");
@@ -160,7 +166,7 @@ public class Tests{
 
         ret = list.get(100);
         boolean t10 = assertEquals(true, ret.hasError(), "Element retrieved at index -1 with error");
-        boolean t11 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");
+        boolean t11 = assertEquals(ErrorMessage.INDEX_OUT_OF_BOUNDS, ret.getError(), "Error is INDEX_OUT_OF_BOUNDS");
         boolean t12 = assertEquals(null, ret.getReturnValue(), "Returned object is null");
 
         clearList(list);
