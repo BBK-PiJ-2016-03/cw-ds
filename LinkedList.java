@@ -36,7 +36,7 @@ public class LinkedList implements List{
         return removeNode(nodeToRemove);        
     }
 
-    private ReturnObject removeNode(Node node){
+    private ReturnObject removeNode(Node nodeToRemove){
 
         Node nextNode = nodeToRemove.getNextNode();
         Node prevNode = nodeToRemove.getPrevNode();
@@ -55,14 +55,15 @@ public class LinkedList implements List{
 
         this.size--;
 
-        return new ReturnObjectImpl(node.getValue(), null);
+        return new ReturnObjectImpl(nodeToRemove.getValue(), null);
     }
 
     private ReturnObject removeLastNode(){
+        Node removedNode = this.tail;
         this.head = null;
         this.tail = null;
         this.size--;
-        return new ReturnObjectImpl(nodeToRemove.getValue(), null);
+        return new ReturnObjectImpl(removedNode.getValue(), null);
     }
 
     @Override
@@ -75,7 +76,7 @@ public class LinkedList implements List{
 
         Node nextNode = getNodeAt(index);
         Node insertionNode = new NodeImpl(item);
-        Node prevNode = noteAtInsertionPoint.getPrevNode();
+        Node prevNode = insertionNode.getPrevNode();
 
         insertNode(prevNode, insertionNode, nextNode);
         
@@ -83,14 +84,14 @@ public class LinkedList implements List{
     }
 
     private void insertNode(Node prev, Node insert, Node next){
-        insertionNode.setPrevNode(prevNode);
-        insertionNode.setNextNode(nextNode);
+        insert.setPrevNode(prev);
+        insert.setNextNode(next);
 
-        if(prevNode != null)
-            prevNode.setNextNode(insertionNode);
+        if(prev != null)
+            prev.setNextNode(insert);
 
-        if(nextNode != null)
-            nextNode.setPrevNode(insertionNode);
+        if(next != null)
+            next.setPrevNode(insert);
 
         this.size++;
     }
@@ -103,7 +104,7 @@ public class LinkedList implements List{
         return getNodeBackwardAt(index);
     }
 
-    private Node getNodeForwardAt(index){
+    private Node getNodeForwardAt(int index){
         Node selectedNode = this.head;
         for(int i = 1; i <= index; i++){
             if(selectedNode.getNextNode() == null)
@@ -113,7 +114,7 @@ public class LinkedList implements List{
         return selectedNode;
     }
 
-    private Node getNodeBackwardAt(index){
+    private Node getNodeBackwardAt(int index){
         Node selectedNode = this.tail;
         for(int i = this.size-2; i >= 0; i--){
             if(selectedNode.getPrevNode() == null)
@@ -138,7 +139,7 @@ public class LinkedList implements List{
         Node penultimate = this.tail;
         this.tail = new NodeImpl(item);
         this.tail.setPrevNode(penultimate);
-        penultimate = setNextNode(this.tail);
+        penultimate.setNextNode(this.tail);
         this.size++;
         return new ReturnObjectImpl(null, null);
 
