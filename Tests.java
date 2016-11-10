@@ -3,7 +3,29 @@ public class Tests{
     public static void main(String[] args){
         Tests tests = new Tests();
 
-        tests.arrayListTests();
+        //tests.arrayListTests();
+        tests.linkedListTests();
+    }
+
+    private void linkedListTests(){
+        List list = new LinkedList();
+
+        boolean isEmpty = testIsEmpty(list);
+        boolean size = testSize(list);
+        boolean get = testGet(list);
+        boolean remove = testRemove(list);
+        boolean add = testAdd(list);
+        boolean insert = testInsert(list);
+
+        System.out.println(isEmpty
+                        && size
+                        && get
+                        && remove
+                        && add
+                        && insert
+                        ? "All tests passed"
+                        : "Test failure"
+                        );
     }
 
     private void arrayListTests(){
