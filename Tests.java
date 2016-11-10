@@ -175,7 +175,7 @@ public class Tests{
     private boolean testContent(List list){
         System.out.println("----test content-----");
         populateList(list, 5);
-        boolean t1 = assertEquals("0 | 1 | 2 | 3 | 4 | ", list.toString(), "Element contents match");
+        boolean t1 = assertEquals("0,1,2,3,4,", list.toString(), "Element contents match");
         boolean t2 = assertEquals(2, list.get(2).getReturnValue(), "Get value stored at index 2");
         return t1 && t2;
     }
@@ -201,6 +201,10 @@ public class Tests{
         boolean t7 = assertEquals(false, ret.hasError(), "Element retrieved at index 0 without error");
         boolean t8 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR");
         boolean t9 = assertEquals(99, ret.getReturnValue(), "Returned value is 99");
+        // System.out.println(list.toString());
+        // for(int i = 0; i < list.size(); i++){
+        //     System.out.print(list.get(i).getReturnValue() + " ");
+        // }
 
         ret = list.get(100);
         boolean t10 = assertEquals(true, ret.hasError(), "Element retrieved at index 100 with error");

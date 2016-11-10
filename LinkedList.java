@@ -24,7 +24,6 @@ public class LinkedList implements List{
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 
         Node node = getNodeAt(index);
-
         return new ReturnObjectImpl(node.getValue(), null);
     }
 
@@ -122,8 +121,9 @@ public class LinkedList implements List{
     }
 
     private Node getNodeBackwardAt(int index){
+        int distance = (this.size-2) - index;
         Node selectedNode = this.tail;
-        for(int i = this.size-2; i >= 0; i--){
+        for(int i = 0; i <= distance; i++){
             if(selectedNode.getPrevNode() == null)
                 return null;
             selectedNode = selectedNode.getPrevNode();
@@ -157,7 +157,7 @@ public class LinkedList implements List{
         String output = "";
         Node currentNode = this.head;
         while(currentNode != null){
-            output += currentNode.getValue() + " | ";
+            output += currentNode.getValue() + ",";
             currentNode = currentNode.getNextNode();
         }
         return output;
