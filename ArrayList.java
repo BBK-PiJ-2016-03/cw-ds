@@ -116,8 +116,8 @@ public class ArrayList implements List{
     }
 
     private void verifyArrayOvercapacity(){
-        if((this.arr.length + 1) / 2 > this.size)
-            reduceArraySize();
+        //if((this.arr.length + 1) / 2 > this.size)
+            //reduceArraySize();
     }
 
     private void expandArraySize(){
@@ -143,6 +143,7 @@ public class ArrayList implements List{
     private void copyArray(Object[] source, Object[] destination){
         for(int i = 0; i < this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
+            //System.out.println(i);
         }
     }
 

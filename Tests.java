@@ -3,8 +3,8 @@ public class Tests{
     public static void main(String[] args){
         Tests tests = new Tests();
 
-        //tests.arrayListTests();
-        tests.linkedListTests();
+        tests.arrayListTests();
+        //tests.linkedListTests();
     }
 
     private void linkedListTests(){
@@ -17,6 +17,7 @@ public class Tests{
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
         boolean content = testContent(list);
+        boolean large = testLarge(list);
 
         System.out.println(isEmpty
                         && size
@@ -24,6 +25,7 @@ public class Tests{
                         && remove
                         && add
                         && insert
+                        && large
                         ? "All tests passed"
                         : "Test failure"
                         );
@@ -39,7 +41,7 @@ public class Tests{
         boolean remove = testRemove(list);
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
-        boolean large = testLarge((ArrayList)list);
+        boolean large = testLarge(list);
 
         System.out.println(isEmpty
                         && size
@@ -55,17 +57,24 @@ public class Tests{
         
     }
 
-    private boolean testLarge(ArrayList list){
+    private boolean testLarge(List list){        
         System.out.println("----test large size-----");
+        clearList(list);
+        int numberOfelements = 20000000;
         byte store = 1;
-        for(int i = 1; i <= 805306368; i++){
+        
+        long startTime = System.nanoTime();
+        for(int i = 1; i <= numberOfelements; i++){
             list.add(store);
             //if(i % 100000 == 0)
                 //System.out.println("iteration: " + i + " array size: " + list.getArraySize());
         }
         //System.out.println("Array size: " + list.getArraySize());
+        long endTime = System.nanoTime();
+        System.out.println((endTime-startTime)/1000000+"ms");
 
-        boolean t1 = assertEquals(805306368, list.getArraySize(), "Array increased in size to 805306368 elements successfully");
+
+        boolean t1 = assertEquals(numberOfelements, list.size(), "Array increased in size to "+numberOfelements+" elements successfully");
         
         clearList(list);
 
