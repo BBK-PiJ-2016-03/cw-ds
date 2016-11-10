@@ -2,7 +2,7 @@ public class ArrayList implements List{
 
     private int size = 0;
     private Object[] arr;
-    private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 10000;
+    private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     public ArrayList(){
         this(5);
@@ -31,18 +31,7 @@ public class ArrayList implements List{
         return retrieveObjectFromIndex(index);      
     }
 
-	/**
-	 * Returns the elements at the given position and removes it
-	 * from the list. The indeces of elements after the removed
-	 * element must be updated accordignly.
-	 * 
-	 * If the index is negative or greater or equal than the size of
-	 * the list, then an appropriate error must be returned.
-	 * 
-	 * @param index the position in the list of the item to be retrieved
-	 * @return the element or an appropriate error message, 
-	 *         encapsulated in a ReturnObject
-	 */
+	
     @Override
 	public ReturnObject remove(int index){        
         ReturnObject object = retrieveObjectFromIndex(index);
@@ -51,6 +40,8 @@ public class ArrayList implements List{
             removeObjectFromIndex(index);
             this.size--;
         }
+
+        verifyArrayOvercapacity();
 
         return object;
     }
@@ -121,7 +112,12 @@ public class ArrayList implements List{
 
     private void verifyArraySize(){
         if(this.arr.length < this.size + 1)
-            expandArraySize();
+            expandArraySize();        
+    }
+
+    private void verifyArrayOvercapacity(){
+        if((this.arr.length + 1) / 2 > this.size)
+            reduceArraySize();
     }
 
     private void expandArraySize(){
@@ -135,9 +131,17 @@ public class ArrayList implements List{
             this.arr = newArr;
         }
     }
+
+    private void reduceArraySize(){
+        int newArrSize = (this.arr.length + 1) / 2;
+
+        Object[] newArr = new Object[newArrSize];
+        copyArray(this.arr, newArr);
+        this.arr = newArr;
+    }
     
     private void copyArray(Object[] source, Object[] destination){
-        for(int i = 0; i < source.length; i++){
+        for(int i = 0; i < this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
         }
     }

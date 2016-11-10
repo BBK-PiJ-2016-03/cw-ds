@@ -16,6 +16,7 @@ public class Tests{
         boolean remove = testRemove(list);
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
+        boolean large = testLarge((ArrayList)list);
 
         System.out.println(isEmpty
                         && size
@@ -23,25 +24,29 @@ public class Tests{
                         && remove
                         && add
                         && insert
+                        && large
                         ? "All tests passed"
                         : "Test failure"
                         );
 
-
         
+    }
 
+    private boolean testLarge(ArrayList list){
+        System.out.println("----test large size-----");
+        byte store = 1;
+        for(int i = 1; i <= 805306368; i++){
+            list.add(store);
+            //if(i % 100000 == 0)
+                //System.out.println("iteration: " + i + " array size: " + list.getArraySize());
+        }
+        //System.out.println("Array size: " + list.getArraySize());
+
+        boolean t1 = assertEquals(805306368, list.getArraySize(), "Array increased in size to 805306368 elements successfully");
         
+        clearList(list);
 
-
-        
-
-        //max test 2 147 483 639
-        // for(int i = 1; i <= Integer.MAX_VALUE - 10; i++){
-        //     list.add(1);
-        //     if(i % 100000 == 0)
-        //         System.out.println("iteration: " + i + " array size: " + list.getArraySize());
-        // }
-        // System.out.println("Array size: " + list.getArraySize());
+        return t1;
     }
 
     private boolean testRemove(List list){
