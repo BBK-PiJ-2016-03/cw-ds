@@ -16,6 +16,7 @@ public class Tests{
         boolean remove = testRemove(list);
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
+        boolean content = testContent(list);
 
         System.out.println(isEmpty
                         && size
@@ -171,6 +172,14 @@ public class Tests{
         return t1 && t2 && t3;  
     }
 
+    private boolean testContent(List list){
+        System.out.println("----test content-----");
+        populateList(list, 5);
+        boolean t1 = assertEquals("0 | 1 | 2 | 3 | 4 | ", list.toString(), "Element contents match");
+        boolean t2 = assertEquals(2, list.get(2).getReturnValue(), "Get value stored at index 2");
+        return t1 && t2;
+    }
+
     private boolean testGet(List list){
         System.out.println("----test get()-----");
 
@@ -184,17 +193,17 @@ public class Tests{
         populateList(list);
 
         ret = list.get(0);
-        boolean t4 = assertEquals(false, ret.hasError(), "Element retrieved at index 0 out error");
+        boolean t4 = assertEquals(false, ret.hasError(), "Element retrieved at index 0 without error");
         boolean t5 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR");
         boolean t6 = assertEquals(0, ret.getReturnValue(), "Returned value is 0");
 
         ret = list.get(99);
-        boolean t7 = assertEquals(false, ret.hasError(), "Element retrieved at index 0 out error");
+        boolean t7 = assertEquals(false, ret.hasError(), "Element retrieved at index 0 without error");
         boolean t8 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR");
         boolean t9 = assertEquals(99, ret.getReturnValue(), "Returned value is 99");
 
         ret = list.get(100);
-        boolean t10 = assertEquals(true, ret.hasError(), "Element retrieved at index -1 with error");
+        boolean t10 = assertEquals(true, ret.hasError(), "Element retrieved at index 100 with error");
         boolean t11 = assertEquals(ErrorMessage.INDEX_OUT_OF_BOUNDS, ret.getError(), "Error is INDEX_OUT_OF_BOUNDS");
         boolean t12 = assertEquals(null, ret.getReturnValue(), "Returned object is null");
 
@@ -205,7 +214,12 @@ public class Tests{
 
     private void populateList(List list){
         //populate list
-        for(int i = 0; i < 100; i++){
+        populateList(list, 100);
+    }
+
+    private void populateList(List list, int length){
+        //populate list
+        for(int i = 0; i < length; i++){
             list.add(i);
         }
     }

@@ -16,6 +16,10 @@ public class LinkedList implements List{
 
     @Override
     public ReturnObject get(int index){
+
+        if(isEmpty())
+            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+
         if(index >= this.size || index < 0)
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 
@@ -63,7 +67,10 @@ public class LinkedList implements List{
         this.head = null;
         this.tail = null;
         this.size--;
-        return new ReturnObjectImpl(removedNode.getValue(), null);
+        if(removedNode != null)
+            return new ReturnObjectImpl(removedNode.getValue(), null);
+
+        return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
     }
 
     @Override
@@ -143,5 +150,16 @@ public class LinkedList implements List{
         this.size++;
         return new ReturnObjectImpl(null, null);
 
+    }
+
+    @Override
+    public String toString(){
+        String output = "";
+        Node currentNode = this.head;
+        while(currentNode != null){
+            output += currentNode.getValue() + " | ";
+            currentNode = currentNode.getNextNode();
+        }
+        return output;
     }
 }
