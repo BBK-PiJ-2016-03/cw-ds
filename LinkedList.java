@@ -82,7 +82,7 @@ public class LinkedList implements List{
 
         Node nextNode = getNodeAt(index);
         Node insertionNode = new NodeImpl(item);
-        Node prevNode = insertionNode.getPrevNode();
+        Node prevNode = nextNode.getPrevNode();
 
         insertNode(prevNode, insertionNode, nextNode);
         

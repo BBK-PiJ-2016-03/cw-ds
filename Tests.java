@@ -120,8 +120,12 @@ public class Tests{
 
         boolean t4 = assertEquals(false, ret.hasError(), "Element added at index 5 without error");
         boolean t5 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "NO_ERROR is returned");
+
         boolean t6 = assertEquals(500, list.get(5).getReturnValue(), "Value inserted at index is returned from index");
         boolean t7 = assertEquals(originalValue, list.get(6).getReturnValue(), "Value previously at index is returned from index + 1");
+
+        //System.out.println(list.toString());
+
         boolean t8 = assertEquals((int)originalValue-1, list.get(4).getReturnValue(), "Value at index is returned from index");
         boolean t9 = assertEquals(101, list.size(), "list is sized 101");
 
