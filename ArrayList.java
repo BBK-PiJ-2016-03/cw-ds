@@ -2,6 +2,7 @@ public class ArrayList implements List{
 
     private int size = 0;
     private Object[] objectArray;
+    //max safe size taken untested as per http://stackoverflow.com/questions/3038392/do-java-arrays-have-a-maximum-size
     private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     public ArrayList(){
