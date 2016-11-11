@@ -1,19 +1,15 @@
 public class ArrayList implements List{
 
     private int size = 0;
-    private Object[] arr;
+    private Object[] objectArray;
     private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
 
     public ArrayList(){
-        this(5);
+        this(16);
     }
 
     public ArrayList(int startingSize){
-        this.arr = new Object[startingSize];
-    }
-
-    public int getArraySize(){
-        return this.arr.length;
+        this.objectArray = new Object[startingSize];
     }
     
     @Override
@@ -41,58 +37,67 @@ public class ArrayList implements List{
             this.size--;
         }
 
-        verifyArrayOvercapacity();
-
         return object;
     }
 
     private void removeObjectFromIndex(int index){
-        Object[] newArr = new Object[this.arr.length];
-        copyArrayTo(this.arr, newArr, index);
-        copyArrayFromRemoval(this.arr, newArr, index);
-        this.arr = newArr;
+        int newArraySize = this.objectArray.length;
+
+        if(arrayIsTooLarge())
+            newArraySize /= 2;
+
+        Object[] newArr = new Object[newArraySize];
+        
+        copyArrayTo(this.objectArray, newArr, index);
+        copyArrayFromRemoval(this.objectArray, newArr, index);
+
+        this.objectArray = newArr;
     }
 
     private ReturnObject retrieveObjectFromIndex(int index){
-        ErrorMessage error = ErrorMessage.NO_ERROR;
-        Object returnObject = null;
+        boolean indexOutOfBounds = index >= this.size || index < 0;
 
-        if(this.size == 0){
-            error = ErrorMessage.EMPTY_STRUCTURE;
-        } 
-        else if(index >= this.size || index < 0){
-            error = ErrorMessage.INDEX_OUT_OF_BOUNDS;
-        }
-        else{
-            returnObject = this.arr[index];
-        }
+        if(isEmpty())
+            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);        
 
-        return new ReturnObjectImpl(returnObject, error);
+        if(indexOutOfBounds)
+            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+
+        Object returnObject = this.objectArray[index]; 
+        return new ReturnObjectImpl(returnObject, ErrorMessage.NO_ERROR);
     }
 
 	
     @Override
 	public ReturnObject add(int index, Object item){
+        boolean indexOutOfBounds = index >= this.size || index < 0;
 
         if(item == null)
             return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
 
-        if(index >= this.size || index < 0)
+        if(indexOutOfBounds)
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
-        
-        verifyArraySize();
+                
         insertArrayElementAt(index, item);
         this.size++;    
 
         return new ReturnObjectImpl(null, null);
     }
 
-    private void insertArrayElementAt(int index, Object item){        
-        Object[] newArr = new Object[this.arr.length];
-        copyArrayTo(this.arr, newArr, index);
+    private void insertArrayElementAt(int index, Object item){  
+
+        int newArraySize = this.objectArray.length;
+
+        if(arrayIsTooSmall())
+            newArraySize *= 2;
+
+        Object[] newArr = new Object[newArraySize];
+
+        copyArrayTo(this.objectArray, newArr, index);
         newArr[index] = item;
-        copyArrayFromInsertion(this.arr, newArr, index);
-        this.arr = newArr;
+        copyArrayFromInsertion(this.objectArray, newArr, index);
+
+        this.objectArray = newArr;
     }
 
     
@@ -102,48 +107,54 @@ public class ArrayList implements List{
         if(item == null)
             return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
 
+        if(arrayIsTooSmall())
+            expandArraySize();
 
-        verifyArraySize();
-        this.arr[this.size] = item;
+        this.objectArray[this.size] = item;
         this.size++;
 
         return new ReturnObjectImpl(null, null);
     }
 
-    private void verifyArraySize(){
-        if(this.arr.length < this.size + 1)
-            expandArraySize();        
+    private boolean arrayIsTooSmall(){
+        if(this.objectArray.length < this.size + 1)
+            return true;
+        return false;
     }
 
-    private void verifyArrayOvercapacity(){
-        //if((this.arr.length + 1) / 2 > this.size)
-            //reduceArraySize();
+    private boolean arrayIsTooLarge(){
+        int sizeCompare = (this.objectArray.length + 1) / 2;
+
+        if(sizeCompare > this.size && sizeCompare >= 16)
+            return true;
+
+        return false;            
     }
 
     private void expandArraySize(){
-        int newArrSize = this.arr.length * 2;
+        int newArrSize = this.objectArray.length * 2;
+        
         if(newArrSize > MAX_ARRAY_SIZE)
             newArrSize = MAX_ARRAY_SIZE;
 
-        if(newArrSize > this.arr.length){
+        if(newArrSize > this.objectArray.length){
             Object[] newArr = new Object[newArrSize];
-            copyArray(this.arr, newArr);
-            this.arr = newArr;
+            copyArray(this.objectArray, newArr);
+            this.objectArray = newArr;
         }
     }
 
     private void reduceArraySize(){
-        int newArrSize = (this.arr.length + 1) / 2;
+        int newArrSize = (this.objectArray.length + 1) / 2;
 
         Object[] newArr = new Object[newArrSize];
-        copyArray(this.arr, newArr);
-        this.arr = newArr;
+        copyArray(this.objectArray, newArr);
+        this.objectArray = newArr;
     }
     
     private void copyArray(Object[] source, Object[] destination){
         for(int i = 0; i < this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
-            //System.out.println(i);
         }
     }
 
@@ -154,7 +165,7 @@ public class ArrayList implements List{
     }
 
     private void copyArrayFromRemoval(Object[] source, Object[] destination, int removalIndex){
-        for(int i = removalIndex; i < source.length; i++){
+        for(int i = removalIndex; i < this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i+1);
         }
     }
@@ -173,7 +184,7 @@ public class ArrayList implements List{
     public String toString(){
         String output = ""; //did not use stringbuilder due to constraints of specification
         for(int i = 0; i < this.size; i++){
-            output += getStringValue(this.arr, i);
+            output += getStringValue(this.objectArray, i);
         }
 
         return output;

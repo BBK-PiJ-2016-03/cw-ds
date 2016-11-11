@@ -26,7 +26,7 @@ public class Tests{
                         && add
                         && insert
                         && large
-                        ? "All tests passed"
+                        ? "All LinkedList tests passed"
                         : "Test failure"
                         );
     }
@@ -41,7 +41,9 @@ public class Tests{
         boolean remove = testRemove(list);
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
-        boolean large = testLarge(list);
+        //boolean large = testLarge(list);
+        boolean growAndShrink = growAndShrink((ArrayList)list);
+
 
         System.out.println(isEmpty
                         && size
@@ -49,12 +51,30 @@ public class Tests{
                         && remove
                         && add
                         && insert
-                        && large
-                        ? "All tests passed"
+                        && growAndShrink
+                        ? "All ArrayList tests passed"
                         : "Test failure"
                         );
 
         
+    }
+
+    private boolean growAndShrink(ArrayList list){
+        int testSize = 32768;
+        System.out.println("----test grow and shrink-----");
+        System.out.println("List Size: " + list.size());  
+        System.out.println("inserting 20 elements...");
+        for(int i = 1; i <= testSize; i++){
+            list.add(5);
+        }
+        System.out.println("List Size: " + list.size());            
+        System.out.println("removing "+(testSize - 10)+" elements...");
+        for(int i = 1; i <= testSize - 10; i++){
+            list.remove(0);  
+        }
+        System.out.println("List Size: " + list.size());  
+
+        return true; 
     }
 
     private boolean testLarge(List list){        
