@@ -88,25 +88,55 @@ public class Tests{
     }
 
     private boolean head(List list){
-        ret = list.head();
+        ReturnObject ret = list.head();
         boolean t1 = assertEquals(true, ret.hasError(), "Called head on empty returns error");
         boolean t2 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");
 
         //add value
         list.add(1);
 
+        ret = list.head();
         boolean t3 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
         boolean t4 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
-        boolean t4 = assertEquals(1, ret.getReturnedValue(), "Value returned is value written");    
+        boolean t5 = assertEquals(1, ret.getReturnedValue(), "Value returned is value written");    
 
-        boolean t3 = assertEquals(false, ret.hasError(), "Called head on empty returns error");
-        boolean t4 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");   
+        //add value
+        list.add(2);
 
-        return t1 && t2 && t3 && t4;
+        ret = list.head();
+        boolean t6 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
+        boolean t7 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
+        boolean t8 = assertEquals(1, ret.getReturnedValue(), "Value returned is first value written");    
+
+        return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8;
     }
 
     private boolean rest(List list){
-        
+        FunctionalList ret = list.rest();
+        boolean t1 = assertEquals(0, ret.size(), "Called rest on empty returns empty list");
+        boolean t2 = assertEquals(true, ret.isEmpty(), "list is EMPTY_STRUCTURE");
+
+        //add value
+        list.add(1);
+
+        ret = list.rest();
+        boolean t3 = assertEquals(0, ret.size(), "Called rest on single element list returns empty list");
+        boolean t4 = assertEquals(true, ret.isEmpty(), "list is EMPTY_STRUCTURE");   
+
+        //add value
+        list.add(2);
+        list.add(3);
+        list.add(4);
+        list.add(5);
+
+        ret = list.rest();
+        boolean t5 = assertEquals(4, ret.size(), "Called rest on length 5 list returns a length 4 list");
+        boolean t6 = assertEquals(2, ret.get(0), "list contains expected data");     
+        boolean t7 = assertEquals(3, ret.get(1), "list contains expected data");    
+        boolean t8 = assertEquals(4, ret.get(2), "list contains expected data");    
+        boolean t9 = assertEquals(5, ret.get(3), "list contains expected data");    
+
+        return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8;
     }
 
     private boolean growAndShrink(List list){
