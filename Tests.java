@@ -31,6 +31,34 @@ public class Tests{
                         );
     }
 
+    private void functionalArrayListTests(){
+        List list = new FunctionalArrayList();
+
+        boolean isEmpty = testIsEmpty(list);
+        boolean size = testSize(list);
+        boolean get = testGet(list);
+        boolean remove = testRemove(list);
+        boolean add = testAdd(list);
+        boolean insert = testInsert(list);
+        //boolean large = testLarge(list);
+        boolean growAndShrink = growAndShrink((ArrayList)list);
+        boolean head = testHead(list);
+        boolean rest = testRest(list);
+
+        System.out.println(isEmpty
+                        && size
+                        && get
+                        && remove
+                        && add
+                        && insert
+                        && growAndShrink
+                        && head
+                        && rest
+                        ? "All ArrayList tests passed"
+                        : "Test failure"
+                        );
+    }
+
     private void arrayListTests(){
 
         List list = new ArrayList();
@@ -59,7 +87,29 @@ public class Tests{
         
     }
 
-    private boolean growAndShrink(ArrayList list){
+    private boolean head(List list){
+        ret = list.head();
+        boolean t1 = assertEquals(true, ret.hasError(), "Called head on empty returns error");
+        boolean t2 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");
+
+        //add value
+        list.add(1);
+
+        boolean t3 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
+        boolean t4 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
+        boolean t4 = assertEquals(1, ret.getReturnedValue(), "Value returned is value written");    
+
+        boolean t3 = assertEquals(false, ret.hasError(), "Called head on empty returns error");
+        boolean t4 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");   
+
+        return t1 && t2 && t3 && t4;
+    }
+
+    private boolean rest(List list){
+        
+    }
+
+    private boolean growAndShrink(List list){
         int testSize = 32768;
         System.out.println("----test grow and shrink-----");
         System.out.println("List Size: " + list.size());  

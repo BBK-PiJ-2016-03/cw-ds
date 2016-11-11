@@ -142,6 +142,8 @@ public class ArrayList implements List{
             copyArray(this.objectArray, newArr);
             this.objectArray = newArr;
         }
+        //would normally throw an exception here regarding having hit the upper capacity limit, not doing so due to restriction on using complex types.
+        //An indexoutofbounds exception will be thrown instead when attempting to access the next index. Unlikely to reach here due to exceeding heap memory.
     }
 
     private void reduceArraySize(){
@@ -196,6 +198,4 @@ public class ArrayList implements List{
 
         return "";
     }
-
-	
 }
