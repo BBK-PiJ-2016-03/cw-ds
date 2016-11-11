@@ -3,8 +3,9 @@ public class Tests{
     public static void main(String[] args){
         Tests tests = new Tests();
 
-        tests.arrayListTests();
+        //tests.arrayListTests();
         //tests.linkedListTests();
+        tests.functionalArrayListTests();
     }
 
     private void linkedListTests(){
@@ -32,7 +33,7 @@ public class Tests{
     }
 
     private void functionalArrayListTests(){
-        List list = new FunctionalArrayList();
+        FunctionalList list = new FunctionalArrayList();
 
         boolean isEmpty = testIsEmpty(list);
         boolean size = testSize(list);
@@ -41,7 +42,7 @@ public class Tests{
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
         //boolean large = testLarge(list);
-        boolean growAndShrink = growAndShrink((ArrayList)list);
+        //boolean growAndShrink = growAndShrink((ArrayList)list);
         boolean head = testHead(list);
         boolean rest = testRest(list);
 
@@ -51,7 +52,6 @@ public class Tests{
                         && remove
                         && add
                         && insert
-                        && growAndShrink
                         && head
                         && rest
                         ? "All ArrayList tests passed"
@@ -87,7 +87,7 @@ public class Tests{
         
     }
 
-    private boolean head(List list){
+    private boolean testHead(FunctionalList list){
         ReturnObject ret = list.head();
         boolean t1 = assertEquals(true, ret.hasError(), "Called head on empty returns error");
         boolean t2 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");
@@ -98,7 +98,7 @@ public class Tests{
         ret = list.head();
         boolean t3 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
         boolean t4 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
-        boolean t5 = assertEquals(1, ret.getReturnedValue(), "Value returned is value written");    
+        boolean t5 = assertEquals(1, ret.getReturnValue(), "Value returned is value written");    
 
         //add value
         list.add(2);
@@ -106,12 +106,12 @@ public class Tests{
         ret = list.head();
         boolean t6 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
         boolean t7 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
-        boolean t8 = assertEquals(1, ret.getReturnedValue(), "Value returned is first value written");    
+        boolean t8 = assertEquals(1, ret.getReturnValue(), "Value returned is first value written");    
 
         return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8;
     }
 
-    private boolean rest(List list){
+    private boolean testRest(FunctionalList list){
         FunctionalList ret = list.rest();
         boolean t1 = assertEquals(0, ret.size(), "Called rest on empty returns empty list");
         boolean t2 = assertEquals(true, ret.isEmpty(), "list is EMPTY_STRUCTURE");
