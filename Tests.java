@@ -30,7 +30,7 @@ public class Tests{
                         && add
                         && insert
                         && sampleable
-                        ? "All LinkedList tests passed"
+                        ? "All sampleableList tests passed"
                         : "Test failure"
                         );
     }
