@@ -4,8 +4,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList{
         if(super.isEmpty())
             return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
 
-        Object head = super.get(0);
-        return new ReturnObjectImpl(head, ErrorMessage.NO_ERROR);
+        return super.get(0);
     }
 
     public FunctionalList rest(){
@@ -14,7 +13,7 @@ public class FunctionalArrayList extends ArrayList implements FunctionalList{
 
         FunctionalList restOfList = new FunctionalArrayList();    
         for(int i = 1; i < super.size(); i++){
-            restOfList.add(super.get(i));
+            restOfList.add(super.get(i).getReturnValue());
         }
 
         return restOfList;

@@ -88,6 +88,8 @@ public class Tests{
     }
 
     private boolean testHead(FunctionalList list){
+        System.out.println("----test Head-----");
+        clearList(list);
         ReturnObject ret = list.head();
         boolean t1 = assertEquals(true, ret.hasError(), "Called head on empty returns error");
         boolean t2 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "Error is EMPTY_STRUCTURE");
@@ -98,7 +100,7 @@ public class Tests{
         ret = list.head();
         boolean t3 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
         boolean t4 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
-        boolean t5 = assertEquals(1, ret.getReturnValue(), "Value returned is value written");    
+        boolean t5 = assertEquals(1, ret.getReturnValue(), "Value returned is value written "+ret.getReturnValue());    
 
         //add value
         list.add(2);
@@ -106,12 +108,17 @@ public class Tests{
         ret = list.head();
         boolean t6 = assertEquals(false, ret.hasError(), "Called head on filled returns no error");
         boolean t7 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "Error is NO_ERROR"); 
-        boolean t8 = assertEquals(1, ret.getReturnValue(), "Value returned is first value written");    
+        boolean t8 = assertEquals(1, ret.getReturnValue(), "Value returned is first value written "+ret.getReturnValue()); 
+
+        clearList(list);   
 
         return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8;
     }
 
     private boolean testRest(FunctionalList list){
+        System.out.println("----test Rest-----");
+        clearList(list);
+
         FunctionalList ret = list.rest();
         boolean t1 = assertEquals(0, ret.size(), "Called rest on empty returns empty list");
         boolean t2 = assertEquals(true, ret.isEmpty(), "list is EMPTY_STRUCTURE");
@@ -131,10 +138,12 @@ public class Tests{
 
         ret = list.rest();
         boolean t5 = assertEquals(4, ret.size(), "Called rest on length 5 list returns a length 4 list");
-        boolean t6 = assertEquals(2, ret.get(0), "list contains expected data");     
-        boolean t7 = assertEquals(3, ret.get(1), "list contains expected data");    
-        boolean t8 = assertEquals(4, ret.get(2), "list contains expected data");    
-        boolean t9 = assertEquals(5, ret.get(3), "list contains expected data");    
+        boolean t6 = assertEquals(2, ret.get(0).getReturnValue(), "list contains expected data");     
+        boolean t7 = assertEquals(3, ret.get(1).getReturnValue(), "list contains expected data");    
+        boolean t8 = assertEquals(4, ret.get(2).getReturnValue(), "list contains expected data");    
+        boolean t9 = assertEquals(5, ret.get(3).getReturnValue(), "list contains expected data");    
+
+        clearList(list);
 
         return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8;
     }
