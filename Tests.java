@@ -6,7 +6,33 @@ public class Tests{
         //tests.arrayListTests();
         //tests.linkedListTests();
         //tests.functionalArrayListTests();
-        tests.functionalLinkedListTests();
+        //tests.functionalLinkedListTests();
+        tests.sampleableListTests();
+    }
+
+    private void sampleableListTests(){
+        SampleableList list = new SampleableListImpl();
+
+        boolean isEmpty = testIsEmpty(list);
+        boolean size = testSize(list);
+        boolean get = testGet(list);
+        boolean remove = testRemove(list);
+        boolean add = testAdd(list);
+        boolean insert = testInsert(list);
+        boolean content = testContent(list);
+        //boolean large = testLarge(list);
+        boolean sampleable = testSampleable(list);
+
+        System.out.println(isEmpty
+                        && size
+                        && get
+                        && remove
+                        && add
+                        && insert
+                        && sampleable
+                        ? "All LinkedList tests passed"
+                        : "Test failure"
+                        );
     }
 
     private void linkedListTests(){
@@ -113,6 +139,21 @@ public class Tests{
                         );
 
         
+    }
+
+    private boolean testSampleable(SampleableList list){
+        System.out.println("----test Samepleable-----");
+        clearList(list);
+        populateList(list, 10);       
+
+        SampleableList sample = list.sample();
+
+        boolean t1 = assertEquals("0,2,4,6,8,", sample.toString(), "Sample retrieves correct values");
+
+        clearList(list);
+
+        return t1;
+
     }
 
     private boolean testHead(FunctionalList list){
