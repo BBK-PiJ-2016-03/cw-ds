@@ -5,7 +5,8 @@ public class Tests{
 
         //tests.arrayListTests();
         //tests.linkedListTests();
-        tests.functionalArrayListTests();
+        //tests.functionalArrayListTests();
+        tests.functionalLinkedListTests();
     }
 
     private void linkedListTests(){
@@ -32,6 +33,33 @@ public class Tests{
                         );
     }
 
+    private void functionalLinkedListTests(){
+        FunctionalList list = new FunctionalLinkedList();
+
+        boolean isEmpty = testIsEmpty(list);
+        boolean size = testSize(list);
+        boolean get = testGet(list);
+        boolean remove = testRemove(list);
+        boolean add = testAdd(list);
+        boolean insert = testInsert(list);
+        //boolean large = testLarge(list);
+        //boolean growAndShrink = growAndShrink((ArrayList)list);
+        boolean head = testHead(list);
+        boolean rest = testRest(list);
+
+        System.out.println(isEmpty
+                        && size
+                        && get
+                        && remove
+                        && add
+                        && insert
+                        && head
+                        && rest
+                        ? "All FunctionalLinkedList tests passed"
+                        : "Test failure"
+                        );
+    }
+
     private void functionalArrayListTests(){
         FunctionalList list = new FunctionalArrayList();
 
@@ -54,7 +82,7 @@ public class Tests{
                         && insert
                         && head
                         && rest
-                        ? "All ArrayList tests passed"
+                        ? "All FunctionalArrayList tests passed"
                         : "Test failure"
                         );
     }
