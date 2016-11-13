@@ -14,6 +14,18 @@ public class StackImpl extends AbstractStack{
         return super.internalList.size();
     }
 
+    public void push(Object item){
+        int tailIndex = size() - 1;
+        super.add(tailIndex, item);        
+    }
 
+    public ReturnObject top(){
+        int tailIndex = size() - 1;
+        return get(tailIndex);
+    }
 
+    public ReturnObject pop(){
+        int tailIndex = size() - 1;
+        return remove(tailIndex);
+    }
 }
