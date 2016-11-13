@@ -12,15 +12,10 @@ public class Tests{
     }
 
     private void stackTests(){
-        Stack list = new StackImpl();
+        Stack list = new StackImpl(null);
+        boolean stack = testStack(list);
 
-        boolean isEmpty = testIsEmpty(list);
-        boolean size = testSize(list);
-        boolean sampleable = testSampleable(list);
-
-        System.out.println(isEmpty
-                        && size
-                        && sampleable
+        System.out.println(stack
                         ? "All sampleableList tests passed"
                         : "Test failure"
                         );
@@ -157,9 +152,9 @@ public class Tests{
         
     }
 
-    private boolean testSampleable(SampleableList list){
+    private boolean testStack(Stack list){
         System.out.println("----test Samepleable-----");
-        clearList(list);
+        clearStack(list);
         ReturnObject ret;
         
         //test top
@@ -191,7 +186,7 @@ public class Tests{
         boolean t11 = assertEquals(4, list.size(), "size matches expected");
         boolean t12 = assertEquals(5, list.top().getReturnValue(), "top on populated structure has value");
 
-        clearList(list);
+        clearStack(list);
 
         return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8 && t9 && t10 && t11 && t12;
 
@@ -256,6 +251,21 @@ public class Tests{
         clearList(list);
 
         return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8;
+    }
+
+    private boolean testSampleable(SampleableList list){
+        System.out.println("----test Samepleable-----");
+        clearList(list);
+        populateList(list, 10);       
+
+        SampleableList sample = list.sample();
+
+        boolean t1 = assertEquals("0,2,4,6,8,", sample.toString(), "Sample retrieves correct values");
+
+        clearList(list);
+
+        return t1;
+
     }
 
     private boolean growAndShrink(List list){
@@ -463,6 +473,12 @@ public class Tests{
     public void clearList(List list){
         while(!list.isEmpty()){
             list.remove(0);
+        }
+    }
+
+    public void clearStack(Stack list){
+        while(!list.isEmpty()){
+            list.pop();
         }
     }
 

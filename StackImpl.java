@@ -16,16 +16,19 @@ public class StackImpl extends AbstractStack{
 
     public void push(Object item){
         int tailIndex = size() - 1;
-        super.add(tailIndex, item);        
+        ReturnObject ret = super.internalList.add(tailIndex, item);    
+
+        if(ret.hasError())
+            System.out.println("Error: " + ret.getError() + "Value: " + ret.getReturnValue());    
     }
 
     public ReturnObject top(){
         int tailIndex = size() - 1;
-        return super.get(tailIndex);
+        return super.internalList.get(tailIndex);
     }
 
     public ReturnObject pop(){
         int tailIndex = size() - 1;
-        return super.remove(tailIndex);
+        return super.internalList.remove(tailIndex);
     }
 }
