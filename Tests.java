@@ -7,7 +7,23 @@ public class Tests{
         //tests.linkedListTests();
         //tests.functionalArrayListTests();
         //tests.functionalLinkedListTests();
-        tests.sampleableListTests();
+        //tests.sampleableListTests();
+        tests.stackTests();
+    }
+
+    private void stackTests(){
+        Stack list = new StackImpl();
+
+        boolean isEmpty = testIsEmpty(list);
+        boolean size = testSize(list);
+        boolean sampleable = testSampleable(list);
+
+        System.out.println(isEmpty
+                        && size
+                        && sampleable
+                        ? "All sampleableList tests passed"
+                        : "Test failure"
+                        );
     }
 
     private void sampleableListTests(){
@@ -144,15 +160,40 @@ public class Tests{
     private boolean testSampleable(SampleableList list){
         System.out.println("----test Samepleable-----");
         clearList(list);
-        populateList(list, 10);       
+        ReturnObject ret;
+        
+        //test top
+        ret = list.top();
 
-        SampleableList sample = list.sample();
+        boolean t1 = assertEquals(true, ret.hasError(), "top on empty structure has error");
+        boolean t2 = assertEquals(ErrorMessage.EMPTY_STRUCTURE, ret.getError(), "top on empty structure has error EMPTY_STRUCTURE");
+        boolean t3 = assertEquals(null, ret.getReturnValue(), "top on empty structure has null value");
 
-        boolean t1 = assertEquals("0,2,4,6,8,", sample.toString(), "Sample retrieves correct values");
+        //test push
+        list.push(1);
+        list.push(2);
+        list.push(3);
+        list.push(4);
+        list.push(5);
+
+        ret = list.top();
+
+        boolean t4 = assertEquals(false, ret.hasError(), "top on populated structure has no error");
+        boolean t5 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "top on empty structure has error NO_ERROR");
+        boolean t6 = assertEquals(5, ret.getReturnValue(), "size matches expected");
+
+        //test pop
+        boolean t7 = assertEquals(5, list.size(), "top on populated structure has value");
+        ret = list.pop();
+        boolean t8 = assertEquals(false, ret.hasError(), "top on populated structure has no error");
+        boolean t9 = assertEquals(ErrorMessage.NO_ERROR, ret.getError(), "top on empty structure has error NO_ERROR");
+        boolean t10 = assertEquals(5, ret.getReturnValue(), "top on populated structure has value");
+        boolean t11 = assertEquals(4, list.size(), "size matches expected");
+        boolean t12 = assertEquals(5, list.top().getReturnValue(), "top on populated structure has value");
 
         clearList(list);
 
-        return t1;
+        return t1 && t2 && t3 && t4 && t5 && t6 && t7 && t8 && t9 && t10 && t11 && t12;
 
     }
 
