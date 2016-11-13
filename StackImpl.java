@@ -21,11 +21,11 @@ public class StackImpl extends AbstractStack{
 
     public ReturnObject top(){
         int tailIndex = size() - 1;
-        return get(tailIndex);
+        return super.get(tailIndex);
     }
 
     public ReturnObject pop(){
         int tailIndex = size() - 1;
-        return remove(tailIndex);
+        return super.remove(tailIndex);
     }
 }
