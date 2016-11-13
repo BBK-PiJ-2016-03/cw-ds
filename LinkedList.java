@@ -29,6 +29,9 @@ public class LinkedList implements List{
 
     @Override
     public ReturnObject remove(int index){
+        if(isEmpty())
+            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+            
         if(index >= this.size || index < 0)
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 

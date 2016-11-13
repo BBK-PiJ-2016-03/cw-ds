@@ -15,11 +15,7 @@ public class StackImpl extends AbstractStack{
     }
 
     public void push(Object item){
-        int tailIndex = size() - 1;
-        ReturnObject ret = super.internalList.add(tailIndex, item);    
-
-        if(ret.hasError())
-            System.out.println("Error: " + ret.getError() + "Value: " + ret.getReturnValue());    
+        super.internalList.add(item);  
     }
 
     public ReturnObject top(){
