@@ -33,26 +33,50 @@ public class ArrayList implements List{
 	public ReturnObject remove(int index){        
         ReturnObject object = retrieveObjectFromIndex(index);
 
-        if(!object.hasError()){
-            removeObjectFromIndex(index);
-            this.size--;
-        }
-
+        if(!object.hasError())
+            removeObjectFromIndex(index);            
+        
         return object;
     }
 
     private void removeObjectFromIndex(int index){
+        if(isLastIndex(index)){
+            removeObjectFromEndOfList();
+            return;
+        }
+        removeObjectFromWithinList(index);
+    }
+
+    private void removeObjectFromEndOfList(){
+        this.objectArray[this.size-1] = null;
+        this.size--;
+
+        if(arrayIsTooLarge())
+            reduceArraySize();
+    }
+
+    private void removeObjectFromWithinList(int index){
+        Object[] newArr = createNewObjectArray();        
+        copyArrayTo(this.objectArray, newArr, index);
+        copyArrayFromRemoval(this.objectArray, newArr, index);
+        this.objectArray = newArr;
+        this.size--;
+    }
+
+    private boolean isLastIndex(int index){
+        return index == this.size - 1;
+    }
+
+    private Object[] createNewObjectArray(){
         int newArraySize = this.objectArray.length;
 
         if(arrayIsTooLarge())
             newArraySize /= 2;
 
-        Object[] newArr = new Object[newArraySize];
-        
-        copyArrayTo(this.objectArray, newArr, index);
-        copyArrayFromRemoval(this.objectArray, newArr, index);
+        if(arrayIsTooSmall())
+            newArraySize *= 2;
 
-        this.objectArray = newArr;
+        return new Object[newArraySize];
     }
 
     private ReturnObject retrieveObjectFromIndex(int index){
@@ -79,35 +103,36 @@ public class ArrayList implements List{
         if(indexOutOfBounds)
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
                 
-        insertArrayElementAt(index, item);
-        this.size++;    
+        insertArrayElementAt(index, item);   
 
         return new ReturnObjectImpl(null, null);
     }
 
-    private void insertArrayElementAt(int index, Object item){  
-
-        int newArraySize = this.objectArray.length;
-
-        if(arrayIsTooSmall())
-            newArraySize *= 2;
-
-        Object[] newArr = new Object[newArraySize];
-
+    private void insertArrayElementAt(int index, Object item){ 
+        Object[] newArr = createNewObjectArray();
         copyArrayTo(this.objectArray, newArr, index);
         newArr[index] = item;
         copyArrayFromInsertion(this.objectArray, newArr, index);
-
-        this.objectArray = newArr;
+        this.objectArray = newArr;        
+        this.size++; 
     }
 
     
     @Override
 	public ReturnObject add(Object item){
-
         if(item == null)
             return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
 
+        return appendElementToArrayEnd(item);
+    }
+
+    private boolean arrayIsTooSmall(){
+        if(this.objectArray.length < this.size + 1)
+            return true;
+        return false;
+    }
+
+    private ReturnObject appendElementToArrayEnd(Object item){
         if(arrayIsTooSmall())
             expandArraySize();
 
@@ -115,12 +140,6 @@ public class ArrayList implements List{
         this.size++;
 
         return new ReturnObjectImpl(null, null);
-    }
-
-    private boolean arrayIsTooSmall(){
-        if(this.objectArray.length < this.size + 1)
-            return true;
-        return false;
     }
 
     private boolean arrayIsTooLarge(){

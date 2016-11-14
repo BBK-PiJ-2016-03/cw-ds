@@ -3,11 +3,11 @@ public class Tests{
     public static void main(String[] args){
         Tests tests = new Tests();
 
-        //tests.arrayListTests();
-        //tests.linkedListTests();
-        //tests.functionalArrayListTests();
-        //tests.functionalLinkedListTests();
-        //tests.sampleableListTests();
+        tests.arrayListTests();
+        tests.linkedListTests();
+        tests.functionalArrayListTests();
+        tests.functionalLinkedListTests();
+        tests.sampleableListTests();
         tests.stackTests();
     }
 
@@ -134,8 +134,8 @@ public class Tests{
         boolean remove = testRemove(list);
         boolean add = testAdd(list);
         boolean insert = testInsert(list);
-        //boolean large = testLarge(list);
-        boolean growAndShrink = growAndShrink((ArrayList)list);
+        boolean large = testLarge(list);
+        //boolean growAndShrink = growAndShrink((ArrayList)list);
 
 
         System.out.println(isEmpty
@@ -144,7 +144,8 @@ public class Tests{
                         && remove
                         && add
                         && insert
-                        && growAndShrink
+                        && large
+                        //&& growAndShrink
                         ? "All ArrayList tests passed"
                         : "Test failure"
                         );
@@ -153,7 +154,7 @@ public class Tests{
     }
 
     private boolean testStack(Stack list){
-        System.out.println("----test Samepleable-----");
+        //System.out.println("----test Samepleable-----");
         clearStack(list);
         ReturnObject ret;
         
@@ -204,7 +205,7 @@ public class Tests{
     }
 
     private boolean testHead(FunctionalList list){
-        System.out.println("----test Head-----");
+        //System.out.println("----test Head-----");
         clearList(list);
         ReturnObject ret = list.head();
         boolean t1 = assertEquals(true, ret.hasError(), "Called head on empty returns error");
@@ -232,7 +233,7 @@ public class Tests{
     }
 
     private boolean testRest(FunctionalList list){
-        System.out.println("----test Rest-----");
+        //System.out.println("----test Rest-----");
         clearList(list);
 
         FunctionalList ret = list.rest();
@@ -265,7 +266,7 @@ public class Tests{
     }
 
     private boolean testSampleable(SampleableList list){
-        System.out.println("----test Samepleable-----");
+        //System.out.println("----test Samepleable-----");
         clearList(list);
         populateList(list, 10);       
 
@@ -281,26 +282,26 @@ public class Tests{
 
     private boolean growAndShrink(List list){
         int testSize = 32768;
-        System.out.println("----test grow and shrink-----");
-        System.out.println("List Size: " + list.size());  
-        System.out.println("inserting 20 elements...");
+        //System.out.println("----test grow and shrink-----");
+        //System.out.println("List Size: " + list.size());  
+        //System.out.println("inserting 20 elements...");
         for(int i = 1; i <= testSize; i++){
             list.add(5);
         }
-        System.out.println("List Size: " + list.size());            
-        System.out.println("removing "+(testSize - 10)+" elements...");
+        //System.out.println("List Size: " + list.size());            
+        //System.out.println("removing "+(testSize - 10)+" elements...");
         for(int i = 1; i <= testSize - 10; i++){
             list.remove(0);  
         }
-        System.out.println("List Size: " + list.size());  
+        //System.out.println("List Size: " + list.size());  
 
         return true; 
     }
 
     private boolean testLarge(List list){        
-        System.out.println("----test large size-----");
+        //System.out.println("----test large size-----");
         clearList(list);
-        int numberOfelements = 20000000;
+        int numberOfelements = 2000000;
         byte store = 1;
         
         long startTime = System.nanoTime();
@@ -311,18 +312,22 @@ public class Tests{
         }
         //System.out.println("Array size: " + list.getArraySize());
         long endTime = System.nanoTime();
-        System.out.println((endTime-startTime)/1000000+"ms");
+        System.out.println("Large population took: "+(endTime-startTime)/1000000+"ms");
 
 
         boolean t1 = assertEquals(numberOfelements, list.size(), "Array increased in size to "+numberOfelements+" elements successfully");
         
+        startTime = System.nanoTime();
         clearList(list);
+        endTime = System.nanoTime();
+
+        System.out.println("Large de-population took: "+(endTime-startTime)/1000000+"ms");
 
         return t1;
     }
 
     private boolean testRemove(List list){
-        System.out.println("----test remove()-----");
+        //System.out.println("----test remove()-----");
         ReturnObject ret = null;
         populateList(list);
 
@@ -353,7 +358,7 @@ public class Tests{
     }
 
     private boolean testInsert(List list){
-        System.out.println("----test add(index, value)-----");
+        //System.out.println("----test add(index, value)-----");
         ReturnObject ret = null;
 
         ret = list.add(-1, 1);
@@ -385,7 +390,7 @@ public class Tests{
     }
 
     private boolean testAdd(List list){
-        System.out.println("----test add(value)-----");
+        //System.out.println("----test add(value)-----");
         ReturnObject ret = null;
 
         ret = list.add(1);
@@ -406,7 +411,7 @@ public class Tests{
     }
 
     private boolean testIsEmpty(List list){
-        System.out.println("----test isEmpty()-----");
+        //System.out.println("----test isEmpty()-----");
         boolean t1 = assertEquals(true, list.isEmpty(), "isEmpty at initialisation");
         populateList(list);
         boolean t2 = assertEquals(false, list.isEmpty(), "isEmpty false when filled");
@@ -416,7 +421,7 @@ public class Tests{
     }
 
     private boolean testSize(List list){
-        System.out.println("----test size()-----");
+        //System.out.println("----test size()-----");
         boolean t1 = assertEquals(0, list.size(), "Size 0");
         populateList(list);
         boolean t2 = assertEquals(100, list.size(), "Size 100");
@@ -426,7 +431,7 @@ public class Tests{
     }
 
     private boolean testContent(List list){
-        System.out.println("----test content-----");
+        //System.out.println("----test content-----");
         populateList(list, 5);
         boolean t1 = assertEquals("0,1,2,3,4,", list.toString(), "Element contents match");
         boolean t2 = assertEquals(2, list.get(2).getReturnValue(), "Get value stored at index 2");
@@ -434,7 +439,7 @@ public class Tests{
     }
 
     private boolean testGet(List list){
-        System.out.println("----test get()-----");
+        //System.out.println("----test get()-----");
 
         ReturnObject ret = null;
 
@@ -483,7 +488,7 @@ public class Tests{
 
     public void clearList(List list){
         while(!list.isEmpty()){
-            list.remove(0);
+            list.remove(list.size()-1);
         }
     }
 
@@ -505,7 +510,8 @@ public class Tests{
         String response = "Test ";
         response +=  result ? "Passed | " + test : "Failed | " + test + " : " + attained;
 
-        System.out.println(response);
+        if(!result)
+            System.out.println(response);
 
         return result;
     }
