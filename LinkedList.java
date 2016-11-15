@@ -16,15 +16,18 @@ public class LinkedList implements List{
 
     @Override
     public ReturnObject get(int index){
-
         if(isEmpty())
             return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
 
-        if(index >= this.size || index < 0)
+        if(isIndexOutOfBounds(index))
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 
         Node node = getNodeAt(index);
         return new ReturnObjectImpl(node.getValue(), null);
+    }
+
+    private boolean isIndexOutOfBounds(int index){
+        return index >= this.size || index < 0;
     }
 
     @Override
@@ -32,7 +35,7 @@ public class LinkedList implements List{
         if(isEmpty())
             return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
             
-        if(index >= this.size || index < 0)
+        if(isIndexOutOfBounds(index))
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 
         if(this.size == 1)

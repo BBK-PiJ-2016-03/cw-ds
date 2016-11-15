@@ -80,27 +80,27 @@ public class ArrayList implements List{
     }
 
     private ReturnObject retrieveObjectFromIndex(int index){
-        boolean indexOutOfBounds = index >= this.size || index < 0;
-
         if(isEmpty())
             return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);        
 
-        if(indexOutOfBounds)
+        if(isIndexOutOfBounds(index))
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
 
         Object returnObject = this.objectArray[index]; 
         return new ReturnObjectImpl(returnObject, ErrorMessage.NO_ERROR);
     }
 
+    private boolean isIndexOutOfBounds(int index){
+        return index >= this.size || index < 0;
+    }
+
 	
     @Override
 	public ReturnObject add(int index, Object item){
-        boolean indexOutOfBounds = index >= this.size || index < 0;
-
         if(item == null)
             return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
 
-        if(indexOutOfBounds)
+        if(isIndexOutOfBounds(index))
             return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
                 
         insertArrayElementAt(index, item);   
