@@ -9,9 +9,9 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList{
 
     public FunctionalList rest(){
         if(super.isEmpty() || super.size() == 1)
-            return new FunctionalArrayList();
+            return new FunctionalLinkedList();
 
-        FunctionalList restOfList = new FunctionalArrayList();    
+        FunctionalList restOfList = new FunctionalLinkedList();    
         for(int i = 1; i < super.size(); i++){
             restOfList.add(super.get(i).getReturnValue());
         }

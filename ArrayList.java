@@ -110,7 +110,6 @@ public class ArrayList implements List{
     }
 
     private void insertArrayElementAt(int index, Object item){ 
-        //System.out.println("index: "+ index + " item " + item);
         Object[] newArr = createNewObjectArray();
         copyArrayTo(this.objectArray, newArr, index);
         newArr[index] = item;

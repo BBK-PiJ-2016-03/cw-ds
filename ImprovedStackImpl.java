@@ -49,19 +49,11 @@ public class ImprovedStackImpl implements ImprovedStack{
     public void remove(Object object){
         List shortenedList = new ArrayList();
 
-            System.out.println("list size: " + this.list.size());
-            System.out.println();
-
         int iterationLimit = this.list.size();
-
-        //for(int i = 0; i < iterationLimit; i++){     
+  
         while(!isEmpty()) {
             writeOrDiscardTopElement(shortenedList, object);
         }
-
-        System.out.println();
-        System.out.println("::");
-        System.out.println(shortenedList);
 
         this.list = shortenedList;
     }
@@ -80,9 +72,7 @@ public class ImprovedStackImpl implements ImprovedStack{
             return;
         }
 
-        shortenedList.add(0, topElement);
-        System.out.print(topElement+"|");
-        
+        shortenedList.add(0, topElement);        
     }
 
     @Override
