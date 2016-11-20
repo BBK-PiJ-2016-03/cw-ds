@@ -178,8 +178,14 @@ public class LinkedListTests{
 
     @Test
     public void insertValidIndex(){
-        initList(100);
+        int size = 6;
+        initList(size);
+
+        //System.out.println(list);
+
+        Object originalPrevValue = list.get(4).getReturnValue();
         Object originalValue = list.get(5).getReturnValue();
+
 
         ReturnObject ret = list.add(5, 500);
         assertEquals(false, ret.hasError());
@@ -192,8 +198,63 @@ public class LinkedListTests{
         assertEquals(originalValue, list.get(6).getReturnValue());
 
         //check previous value is still in correct position
-        assertEquals((int)originalValue-1, list.get(4).getReturnValue());
-        assertEquals(101, list.size());
+        assertEquals(originalPrevValue, list.get(4).getReturnValue());
+        assertEquals(size+1, list.size());
+
+        //System.out.println(list);
+    }
+
+    // @Test
+    // public void insertValidIndexOnEmpty(){
+    //     initList();
+
+    //     ReturnObject ret = list.add(0, 5);
+    //     ret = list.add(0, 4);
+    //     ret = list.add(0, 3);
+    //     ret = list.add(0, 2);
+    //     ret = list.add(0, 1);
+
+    //     assertEquals(5, list.size());
+
+    //     assertEquals(1, list.get(0).getReturnValue());
+    //     assertEquals(2, list.get(1).getReturnValue());
+    //     assertEquals(3, list.get(2).getReturnValue());
+    //     assertEquals(4, list.get(3).getReturnValue());
+    //     assertEquals(5, list.get(4).getReturnValue());
+    // }
+
+    @Test
+    public void insertValidZeroIndex(){
+        int size = 6;
+        initList(size);
+
+        //System.out.println(list);
+
+        Object originalPrevValue = list.get(0).getReturnValue();
+        Object originalValue = list.get(1).getReturnValue();
+
+
+        ReturnObject ret = list.add(0, 30);
+        ret = list.add(0, 20);
+        ret = list.add(0, 10);
+        ret = list.add(0, 0);
+        assertEquals(false, ret.hasError());
+        assertEquals(ErrorMessage.NO_ERROR, ret.getError());
+
+        //check inserted value is at correct position
+        assertEquals(0, list.get(0).getReturnValue());
+        assertEquals(10, list.get(1).getReturnValue());
+        assertEquals(20, list.get(2).getReturnValue());
+        assertEquals(30, list.get(3).getReturnValue());
+
+        //check value previously at that position is now one index further along
+        assertEquals(originalPrevValue, list.get(4).getReturnValue());
+
+        //check previous value is still in correct position
+        assertEquals(originalValue, list.get(5).getReturnValue());
+        assertEquals(size+4, list.size());
+
+        //System.out.println(list);
     }
 
     @Test
@@ -203,13 +264,13 @@ public class LinkedListTests{
         assertEquals(2, list.get(2).getReturnValue());
     }
 
-    @Test(timeout = 5000)
-    public void largeInsert(){
-        initList(8000000);
-    }
+    // @Test(timeout = 5000)
+    // public void largeInsert(){
+    //     initList(8000000);
+    // }
 
-    @Test(timeout = 1500)
-    public void depopulate(){
-        clearList();
-    }
+    // @Test(timeout = 1500)
+    // public void depopulate(){
+    //     clearList();
+    // }
 }

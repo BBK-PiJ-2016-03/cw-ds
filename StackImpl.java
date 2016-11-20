@@ -27,4 +27,9 @@ public class StackImpl extends AbstractStack{
         int tailIndex = size() - 1;
         return super.internalList.remove(tailIndex);
     }
+
+    @Override
+    public String toString(){
+        return super.internalList.toString();  
+    }
 }

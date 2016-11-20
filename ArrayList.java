@@ -188,7 +188,7 @@ public class ArrayList implements List{
     }
 
     private void copyArrayTo(Object[] source, Object[] destination, int stopIndex){
-        for(int i = 0; i < source.length && i <= stopIndex && i < this.size; i++){
+        for(int i = 0; i < source.length && i <= stopIndex; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
         }
     }
@@ -200,7 +200,7 @@ public class ArrayList implements List{
     }
 
     private void copyArrayFromInsertion(Object[] source, Object[] destination, int insertionIndex){
-        for(int i = insertionIndex+1; i < source.length && i < this.size; i++){
+        for(int i = insertionIndex+1; i < source.length; i++){
             destination[i] = getArrayCopyWriteValue(source, i-1);
         }
     }

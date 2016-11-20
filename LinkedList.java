@@ -99,13 +99,26 @@ public class LinkedList implements List{
         insert.setPrevNode(prev);
         insert.setNextNode(next);
 
-        if(prev != null)
-            prev.setNextNode(insert);
-
-        if(next != null)
-            next.setPrevNode(insert);
+        checkAndSetFirstNode(prev, insert, next);
+        checkAndSetLastNode(prev, insert, next);
 
         this.size++;
+    }
+
+    private void checkAndSetFirstNode(Node prev, Node insert, Node next){
+        if(prev == null){
+            head = insert;
+            return;
+        }
+        prev.setNextNode(insert);
+    }
+
+    private void checkAndSetLastNode(Node prev, Node insert, Node next){
+        if(next == null){
+            tail = insert;
+            return;
+        }
+        next.setPrevNode(insert);        
     }
 
     private Node getNodeAt(int index){
