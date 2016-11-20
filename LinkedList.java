@@ -6,7 +6,7 @@ public class LinkedList implements List{
 
     @Override
     public boolean isEmpty(){
-        return this.size == 0;
+        return this.size <= 0;
     }
 
     @Override
@@ -163,7 +163,7 @@ public class LinkedList implements List{
         String output = "";
         Node currentNode = this.head;
         while(currentNode != null){
-            output += currentNode.getValue() + ",";
+            output += currentNode.getValue() + "\n";
             currentNode = currentNode.getNextNode();
         }
         return output;

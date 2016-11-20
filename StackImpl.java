@@ -3,7 +3,7 @@ public class StackImpl extends AbstractStack{
     public StackImpl(List list){
         super(list);
         if(super.internalList == null)
-            super.internalList = new LinkedList();
+            super.internalList = new ArrayList();
     }
 
     public boolean isEmpty(){

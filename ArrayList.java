@@ -5,6 +5,7 @@ public class ArrayList implements List{
     //max safe size taken untested as per http://stackoverflow.com/questions/3038392/do-java-arrays-have-a-maximum-size
     private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
     private final int DEFAULT_STARTING_SIZE = 16;
+    private final int SCALE_FACTOR = 2;
 
     //Removed due to clarifications document
     // public ArrayList(){
@@ -21,7 +22,7 @@ public class ArrayList implements List{
     
     @Override
 	public boolean isEmpty(){
-        return this.size == 0;
+        return this.size <= 0;
     }
 
     @Override
@@ -77,10 +78,10 @@ public class ArrayList implements List{
         int newArraySize = this.objectArray.length;
 
         if(arrayIsTooLarge())
-            newArraySize /= 2;
+            newArraySize /= SCALE_FACTOR;
 
         if(arrayIsTooSmall())
-            newArraySize *= 2;
+            newArraySize *= SCALE_FACTOR;
 
         return new Object[newArraySize];
     }
@@ -149,7 +150,7 @@ public class ArrayList implements List{
     }
 
     private boolean arrayIsTooLarge(){
-        int sizeCompare = (this.objectArray.length + 1) / 2;
+        int sizeCompare = (this.objectArray.length + 1) / SCALE_FACTOR;
 
         if(sizeCompare > this.size && sizeCompare >= DEFAULT_STARTING_SIZE)
             return true;
@@ -158,7 +159,7 @@ public class ArrayList implements List{
     }
 
     private void expandArraySize(){
-        int newArrSize = this.objectArray.length * 2;
+        int newArrSize = this.objectArray.length * SCALE_FACTOR;
         
         if(newArrSize > MAX_ARRAY_SIZE)
             newArrSize = MAX_ARRAY_SIZE;
@@ -173,7 +174,7 @@ public class ArrayList implements List{
     }
 
     private void reduceArraySize(){
-        int newArrSize = (this.objectArray.length + 1) / 2;
+        int newArrSize = (this.objectArray.length + 1) / SCALE_FACTOR;
 
         Object[] newArr = new Object[newArrSize];
         copyArray(this.objectArray, newArr);
@@ -187,7 +188,7 @@ public class ArrayList implements List{
     }
 
     private void copyArrayTo(Object[] source, Object[] destination, int stopIndex){
-        for(int i = 0; i < source.length && i <= stopIndex; i++){
+        for(int i = 0; i < source.length && i <= stopIndex && i < this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
         }
     }
@@ -199,13 +200,13 @@ public class ArrayList implements List{
     }
 
     private void copyArrayFromInsertion(Object[] source, Object[] destination, int insertionIndex){
-        for(int i = insertionIndex+1; i < source.length; i++){
+        for(int i = insertionIndex+1; i < source.length && i < this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i-1);
         }
     }
 
     private Object getArrayCopyWriteValue(Object[] source, int index){
-        return (index < source.length && index >= 0) ? source[index] : null;
+        return (index < source.length && index >= 0 && index < this.size) ? source[index] : null;
     }
 
     @Override
@@ -221,7 +222,6 @@ public class ArrayList implements List{
     private String getStringValue(Object[] arr, int index){
         if(arr[index] != null)
             return arr[index].toString()+"\n";
-
         return "";
     }
 }
