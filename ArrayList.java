@@ -3,9 +3,9 @@ public class ArrayList implements List{
     private int size = 0;
     private Object[] objectArray;
     //max safe size taken untested as per http://stackoverflow.com/questions/3038392/do-java-arrays-have-a-maximum-size
-    private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
-    private final int DEFAULT_STARTING_SIZE = 16;
-    private final int SCALE_FACTOR = 2;
+    private static final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+    private static final int DEFAULT_STARTING_SIZE = 16;
+    private static final int SCALE_FACTOR = 2;
 
     public ArrayList() {
         this.objectArray = new Object[DEFAULT_STARTING_SIZE];

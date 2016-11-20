@@ -48,8 +48,6 @@ public class ImprovedStackImpl implements ImprovedStack{
 
     public void remove(Object object){
         List shortenedList = new ArrayList();
-
-        int iterationLimit = this.list.size();
   
         while(!isEmpty()) {
             writeOrDiscardTopElement(shortenedList, object);
