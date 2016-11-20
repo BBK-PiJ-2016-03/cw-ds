@@ -199,7 +199,7 @@ public class FunctionalArrayListTests{
     @Test
     public void contentMatches(){
         initList(5);
-        assertEquals("0\n1\n2\n3\n4\n", list.toString());
+        assertEquals("0|1|2|3|4|", list.toString());
         assertEquals(2, list.get(2).getReturnValue());
     }
 

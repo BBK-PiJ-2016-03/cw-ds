@@ -1,4 +1,4 @@
-public class SampleableListImpl extends LinkedList implements SampleableList{
+public class SampleableListImpl extends ArrayList implements SampleableList{
 
     public SampleableList sample(){
         SampleableList list = new SampleableListImpl(); 

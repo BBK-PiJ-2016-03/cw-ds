@@ -27,7 +27,7 @@ public class SampleableListTests{
 
         SampleableList sample = list.sample();
 
-        assertEquals("0\n2\n4\n6\n8\n", sample.toString());
+        assertEquals("0|2|4|6|8|", sample.toString());
     }
 
     @Test
@@ -36,6 +36,6 @@ public class SampleableListTests{
 
         SampleableList sample = list.sample();
 
-        assertEquals("0\n2\n4\n6\n8\n10\n12\n14\n16\n18\n20\n22\n24\n26\n28\n30\n32\n", sample.toString());
+        assertEquals("0|2|4|6|8|10|12|14|16|18|20|22|24|26|28|30|32|", sample.toString());
     }
 }

@@ -7,15 +7,6 @@ public class ArrayList implements List{
     private final int DEFAULT_STARTING_SIZE = 16;
     private final int SCALE_FACTOR = 2;
 
-    //Removed due to clarifications document
-    // public ArrayList(){
-    //     this(DEFAULT_STARTING_SIZE);
-    // }
-    
-    // public ArrayList(int startingSize){
-    //     this.objectArray = new Object[startingSize];
-    // }
-
     public ArrayList() {
         this.objectArray = new Object[DEFAULT_STARTING_SIZE];
     }
@@ -107,6 +98,9 @@ public class ArrayList implements List{
         if(item == null)
             return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 
+        if(arrayIsTooSmall() && this.objectArray.length == MAX_ARRAY_SIZE)            
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
+
         if(isIndexOutOfBounds(index))
             return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
                 
@@ -129,7 +123,10 @@ public class ArrayList implements List{
     @Override
 	public ReturnObject add(Object item){
         if(item == null)
-            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);        
+        
+        if(arrayIsTooSmall() && this.objectArray.length == MAX_ARRAY_SIZE)            
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
 
         return appendElementToArrayEnd(item);
     }
@@ -141,6 +138,7 @@ public class ArrayList implements List{
     }
 
     private ReturnObject appendElementToArrayEnd(Object item){
+
         if(arrayIsTooSmall())
             expandArraySize();
 
@@ -159,19 +157,17 @@ public class ArrayList implements List{
         return false;            
     }
 
-    private void expandArraySize(){
+    private void  expandArraySize(){
         int newArrSize = this.objectArray.length * SCALE_FACTOR;
         
-        if(newArrSize > MAX_ARRAY_SIZE)
+        if(newArrSize > MAX_ARRAY_SIZE)            
             newArrSize = MAX_ARRAY_SIZE;
 
         if(newArrSize > this.objectArray.length){
             Object[] newArr = new Object[newArrSize];
             copyArray(this.objectArray, newArr);
             this.objectArray = newArr;
-        }
-        //would normally throw an exception here regarding having hit the upper capacity limit, not doing so due to restriction on using complex types.
-        //An indexoutofbounds exception will be thrown instead when attempting to access the next index. Unlikely to reach here in 2016 due to exceeding heap memory.
+        }        
     }
 
     private void reduceArraySize(){
