@@ -4,13 +4,19 @@ public class ArrayList implements List{
     private Object[] objectArray;
     //max safe size taken untested as per http://stackoverflow.com/questions/3038392/do-java-arrays-have-a-maximum-size
     private final int MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8;
+    private final int DEFAULT_STARTING_SIZE = 16;
 
-    public ArrayList(){
-        this(16);
-    }
+    //Removed due to clarifications document
+    // public ArrayList(){
+    //     this(DEFAULT_STARTING_SIZE);
+    // }
+    
+    // public ArrayList(int startingSize){
+    //     this.objectArray = new Object[startingSize];
+    // }
 
-    public ArrayList(int startingSize){
-        this.objectArray = new Object[startingSize];
+    public ArrayList() {
+        this.objectArray = new Object[DEFAULT_STARTING_SIZE];
     }
     
     @Override
@@ -81,13 +87,13 @@ public class ArrayList implements List{
 
     private ReturnObject retrieveObjectFromIndex(int index){
         if(isEmpty())
-            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);        
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);        
 
         if(isIndexOutOfBounds(index))
-            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
 
         Object returnObject = this.objectArray[index]; 
-        return new ReturnObjectImpl(returnObject, ErrorMessage.NO_ERROR);
+        return new ReturnObjectImpl(returnObject);
     }
 
     private boolean isIndexOutOfBounds(int index){
@@ -98,14 +104,14 @@ public class ArrayList implements List{
     @Override
 	public ReturnObject add(int index, Object item){
         if(item == null)
-            return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 
         if(isIndexOutOfBounds(index))
-            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
                 
         insertArrayElementAt(index, item);   
 
-        return new ReturnObjectImpl(null, null);
+        return new ReturnObjectImpl(ErrorMessage.NO_ERROR);
     }
 
     private void insertArrayElementAt(int index, Object item){ 
@@ -121,7 +127,7 @@ public class ArrayList implements List{
     @Override
 	public ReturnObject add(Object item){
         if(item == null)
-            return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 
         return appendElementToArrayEnd(item);
     }
@@ -139,13 +145,13 @@ public class ArrayList implements List{
         this.objectArray[this.size] = item;
         this.size++;
 
-        return new ReturnObjectImpl(null, null);
+        return new ReturnObjectImpl(ErrorMessage.NO_ERROR);
     }
 
     private boolean arrayIsTooLarge(){
         int sizeCompare = (this.objectArray.length + 1) / 2;
 
-        if(sizeCompare > this.size && sizeCompare >= 16)
+        if(sizeCompare > this.size && sizeCompare >= DEFAULT_STARTING_SIZE)
             return true;
 
         return false;            
@@ -163,7 +169,7 @@ public class ArrayList implements List{
             this.objectArray = newArr;
         }
         //would normally throw an exception here regarding having hit the upper capacity limit, not doing so due to restriction on using complex types.
-        //An indexoutofbounds exception will be thrown instead when attempting to access the next index. Unlikely to reach here due to exceeding heap memory.
+        //An indexoutofbounds exception will be thrown instead when attempting to access the next index. Unlikely to reach here in 2016 due to exceeding heap memory.
     }
 
     private void reduceArraySize(){

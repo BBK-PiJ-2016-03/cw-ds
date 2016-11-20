@@ -2,7 +2,7 @@ public class FunctionalLinkedList extends LinkedList implements FunctionalList{
     
     public ReturnObject head(){
         if(super.isEmpty())
-            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
 
         return super.get(0);
     }

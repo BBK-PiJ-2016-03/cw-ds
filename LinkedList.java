@@ -17,13 +17,13 @@ public class LinkedList implements List{
     @Override
     public ReturnObject get(int index){
         if(isEmpty())
-            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
 
         if(isIndexOutOfBounds(index))
-            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 
         Node node = getNodeAt(index);
-        return new ReturnObjectImpl(node.getValue(), null);
+        return new ReturnObjectImpl(node.getValue());
     }
 
     private boolean isIndexOutOfBounds(int index){
@@ -33,10 +33,10 @@ public class LinkedList implements List{
     @Override
     public ReturnObject remove(int index){
         if(isEmpty())
-            return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+            return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
             
         if(isIndexOutOfBounds(index))
-            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);       
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);       
 
         if(this.size == 1)
             return removeLastNode();
@@ -64,7 +64,7 @@ public class LinkedList implements List{
 
         this.size--;
 
-        return new ReturnObjectImpl(nodeToRemove.getValue(), null);
+        return new ReturnObjectImpl(nodeToRemove.getValue());
     }
 
     private ReturnObject removeLastNode(){
@@ -73,18 +73,18 @@ public class LinkedList implements List{
         this.tail = null;
         this.size--;
         if(removedNode != null)
-            return new ReturnObjectImpl(removedNode.getValue(), null);
+            return new ReturnObjectImpl(removedNode.getValue());
 
-        return new ReturnObjectImpl(null, ErrorMessage.EMPTY_STRUCTURE);
+        return new ReturnObjectImpl(ErrorMessage.EMPTY_STRUCTURE);
     }
 
     @Override
     public ReturnObject add(int index, Object item){
         if(item == null)
-            return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 
         if(index >= this.size || index < 0)
-            return new ReturnObjectImpl(null, ErrorMessage.INDEX_OUT_OF_BOUNDS);
+            return new ReturnObjectImpl(ErrorMessage.INDEX_OUT_OF_BOUNDS);
 
         Node nextNode = getNodeAt(index);
         Node insertionNode = new NodeImpl(item);
@@ -92,7 +92,7 @@ public class LinkedList implements List{
 
         insertNode(prevNode, insertionNode, nextNode);
         
-        return new ReturnObjectImpl(null, null);
+        return new ReturnObjectImpl(ErrorMessage.NO_ERROR);
     }
 
     private void insertNode(Node prev, Node insert, Node next){
@@ -140,13 +140,13 @@ public class LinkedList implements List{
     @Override
     public ReturnObject add(Object item){
         if(item == null)
-            return new ReturnObjectImpl(null, ErrorMessage.INVALID_ARGUMENT);
+            return new ReturnObjectImpl(ErrorMessage.INVALID_ARGUMENT);
 
         if(this.size == 0){
             this.head = new NodeImpl(item);
             this.tail = head;
             this.size++;
-            return new ReturnObjectImpl(null, null);
+            return new ReturnObjectImpl(ErrorMessage.NO_ERROR);
         }
 
         Node penultimate = this.tail;
@@ -154,7 +154,7 @@ public class LinkedList implements List{
         this.tail.setPrevNode(penultimate);
         penultimate.setNextNode(this.tail);
         this.size++;
-        return new ReturnObjectImpl(null, null);
+        return new ReturnObjectImpl(ErrorMessage.NO_ERROR);
 
     }
 
