@@ -176,7 +176,7 @@ public class LinkedList implements List{
         String output = "";
         Node currentNode = this.head;
         while(currentNode != null){
-            output += currentNode.getValue() + "\n";
+            output += currentNode.getValue() + "|";
             currentNode = currentNode.getNextNode();
         }
         return output;

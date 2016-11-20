@@ -116,6 +116,7 @@ public class ArrayList implements List{
     }
 
     private void insertArrayElementAt(int index, Object item){ 
+        //System.out.println("index: "+ index + " item " + item);
         Object[] newArr = createNewObjectArray();
         copyArrayTo(this.objectArray, newArr, index);
         newArr[index] = item;
@@ -182,7 +183,7 @@ public class ArrayList implements List{
     }
     
     private void copyArray(Object[] source, Object[] destination){
-        for(int i = 0; i < this.size; i++){
+        for(int i = 0; i <= this.size; i++){
             destination[i] = getArrayCopyWriteValue(source, i);
         }
     }
@@ -200,13 +201,13 @@ public class ArrayList implements List{
     }
 
     private void copyArrayFromInsertion(Object[] source, Object[] destination, int insertionIndex){
-        for(int i = insertionIndex+1; i < source.length; i++){
-            destination[i] = getArrayCopyWriteValue(source, i-1);
+        for(int i = insertionIndex; i < this.size; i++){
+            destination[i+1] = getArrayCopyWriteValue(source, i);
         }
     }
 
     private Object getArrayCopyWriteValue(Object[] source, int index){
-        return (index < source.length && index >= 0 && index < this.size) ? source[index] : null;
+        return (index < source.length && index >= 0) ? source[index] : null;
     }
 
     @Override
@@ -221,7 +222,7 @@ public class ArrayList implements List{
 
     private String getStringValue(Object[] arr, int index){
         if(arr[index] != null)
-            return arr[index].toString()+"\n";
+            return arr[index].toString()+"|";
         return "";
     }
 }
