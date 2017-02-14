@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>FindBugs Report</title>
+<style type="text/css">
+		.tablerow0 {
+			background: #EEEEEE;
+		}
+
+		.tablerow1 {
+			background: white;
+		}
+
+		.detailrow0 {
+			background: #EEEEEE;
+		}
+
+		.detailrow1 {
+			background: white;
+		}
+
+		.tableheader {
+			background: #b9b9fe;
+			font-size: larger;
+		}
+
+		.tablerow0:hover, .tablerow1:hover {
+			background: #aaffaa;
+		}
+
+		.priority-1 {
+		    color: red;
+		    font-weight: bold;
+		}
+		.priority-2 {
+		    color: orange;
+		    font-weight: bold;
+		}
+		.priority-3 {
+		    color: green;
+		    font-weight: bold;
+		}
+		.priority-4 {
+		    color: blue;
+		    font-weight: bold;
+		}
+		</style>
+<script type="text/javascript">
+			function toggleRow(elid) {
+				if (document.getElementById) {
+					element = document.getElementById(elid);
+					if (element) {
+						if (element.style.display == 'none') {
+							element.style.display = 'block';
+							//window.status = 'Toggle on!';
+						} else {
+							element.style.display = 'none';
+							//window.status = 'Toggle off!';
+						}
+					}
+				}
+			}
+		</script>
+</head>
+<body>
+<h1>
+<a href="http://findbugs.sourceforge.net">FindBugs</a> Report</h1>
+<h2>Project Information</h2>
+<p>Project: 
+		03-cw-ds</p>
+<p>FindBugs version: 3.0.1</p>
+<p>Code analyzed:</p>
+<ul>
+<li>/Users/keith/Library/Mobile Documents/com~apple~CloudDocs/Courses/PiJ/cw-2016-17/cw2/03/cw-ds</li>
+</ul>
+<p>
+<br/>
+<br/>
+</p>
+<h2>Metrics</h2>
+<p>0 lines of code analyzed,
+	in 0 classes, 
+	in 1 packages.</p>
+<table width="500" cellpadding="5" cellspacing="2">
+<tr class="tableheader">
+<th align="left">Metric</th>
+<th align="right">Total</th>
+<th align="right">Density*</th>
+</tr>
+<tr class="tablerow0">
+<td>High Priority Warnings</td>
+<td align="right"/>
+<td align="right">0.00</td>
+</tr>
+<tr class="tablerow1">
+<td>Medium Priority Warnings</td>
+<td align="right">8</td>
+<td align="right">0.00</td>
+</tr>
+<tr class="$totalClass">
+<td>
+<b>Total Warnings</b>
+</td>
+<td align="right">
+<b>8</b>
+</td>
+<td align="right">
+<b>0.00</b>
+</td>
+</tr>
+</table>
+<p>
+<i>(* Defects per Thousand lines of non-commenting source statements)</i>
+</p>
+<p>
+<br/>
+<br/>
+</p>
+<h2>Contents</h2>
+<ul>
+<li>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+</li>
+<li>
+<a href="#Warnings_STYLE">Dodgy code Warnings</a>
+</li>
+<li>
+<a href="#Details">Details</a>
+</li>
+</ul>
+<h1>Summary</h1>
+<table width="500" cellpadding="5" cellspacing="2">
+<tr class="tableheader">
+<th align="left">Warning Type</th>
+<th align="right">Number</th>
+</tr>
+<tr class="tablerow0">
+<td>
+<a href="#Warnings_PERFORMANCE">Performance Warnings</a>
+</td>
+<td align="right">7</td>
+</tr>
+<tr class="tablerow1">
+<td>
+<a href="#Warnings_STYLE">Dodgy code Warnings</a>
+</td>
+<td align="right">1</td>
+</tr>
+<tr class="tablerow0">
+<td>
+<b>Total</b>
+</td>
+<td align="right">
+<b>8</b>
+</td>
+</tr>
+</table>
+<h1>Warnings</h1>
+<p>Click on a warning row to see full context information.</p>
+<h2>
+<a name="Warnings_PERFORMANCE">Performance Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65552');">
+<td>
+<span class="priority-2">SBSC</span>
+</td>
+<td>ArrayList.toString() concatenates strings using + in a loop</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65552" style="display: none;">
+<a href="#SBSC_USE_STRINGBUFFER_CONCATENATION">Bug type SBSC_USE_STRINGBUFFER_CONCATENATION (click for details)</a>
+<br/>In class ArrayList<br/>In method ArrayList.toString()<br/>At ArrayList.java:[line 212]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65842');">
+<td>
+<span class="priority-2">SBSC</span>
+</td>
+<td>LinkedList.toString() concatenates strings using + in a loop</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65842" style="display: none;">
+<a href="#SBSC_USE_STRINGBUFFER_CONCATENATION">Bug type SBSC_USE_STRINGBUFFER_CONCATENATION (click for details)</a>
+<br/>In class LinkedList<br/>In method LinkedList.toString()<br/>At LinkedList.java:[line 179]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65606');">
+<td>
+<span class="priority-2">UPM</span>
+</td>
+<td>Private method ArrayListTests.populateList() is never called</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65606" style="display: none;">
+<a href="#UPM_UNCALLED_PRIVATE_METHOD">Bug type UPM_UNCALLED_PRIVATE_METHOD (click for details)</a>
+<br/>In class ArrayListTests<br/>In method ArrayListTests.populateList()<br/>At ArrayListTests.java:[lines 10-11]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65660');">
+<td>
+<span class="priority-2">UPM</span>
+</td>
+<td>Private method FunctionalArrayListTests.populateList() is never called</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65660" style="display: none;">
+<a href="#UPM_UNCALLED_PRIVATE_METHOD">Bug type UPM_UNCALLED_PRIVATE_METHOD (click for details)</a>
+<br/>In class FunctionalArrayListTests<br/>In method FunctionalArrayListTests.populateList()<br/>At FunctionalArrayListTests.java:[lines 14-15]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65714');">
+<td>
+<span class="priority-2">UPM</span>
+</td>
+<td>Private method FunctionalLinkedListTests.populateList() is never called</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65714" style="display: none;">
+<a href="#UPM_UNCALLED_PRIVATE_METHOD">Bug type UPM_UNCALLED_PRIVATE_METHOD (click for details)</a>
+<br/>In class FunctionalLinkedListTests<br/>In method FunctionalLinkedListTests.populateList()<br/>At FunctionalLinkedListTests.java:[lines 14-15]</p>
+</td>
+</tr>
+<tr class="tablerow0" onclick="toggleRow('N65896');">
+<td>
+<span class="priority-2">UPM</span>
+</td>
+<td>Private method LinkedListTests.populateList() is never called</td>
+</tr>
+<tr class="detailrow0">
+<td/>
+<td>
+<p id="N65896" style="display: none;">
+<a href="#UPM_UNCALLED_PRIVATE_METHOD">Bug type UPM_UNCALLED_PRIVATE_METHOD (click for details)</a>
+<br/>In class LinkedListTests<br/>In method LinkedListTests.populateList()<br/>At LinkedListTests.java:[lines 10-11]</p>
+</td>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65950');">
+<td>
+<span class="priority-2">UPM</span>
+</td>
+<td>Private method StackImplTests.populateStack() is never called</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65950" style="display: none;">
+<a href="#UPM_UNCALLED_PRIVATE_METHOD">Bug type UPM_UNCALLED_PRIVATE_METHOD (click for details)</a>
+<br/>In class StackImplTests<br/>In method StackImplTests.populateStack()<br/>At StackImplTests.java:[lines 10-11]</p>
+</td>
+</tr>
+</table>
+<h2>
+<a name="Warnings_STYLE">Dodgy code Warnings</a>
+</h2>
+<table class="warningtable" width="100%" cellspacing="0">
+<tr class="tableheader">
+<th align="left">Code</th>
+<th align="left">Warning</th>
+</tr>
+<tr class="tablerow1" onclick="toggleRow('N65768');">
+<td>
+<span class="priority-2">DLS</span>
+</td>
+<td>Dead store to $L2 in ImprovedStackImplTests.removeElementsPerformance()</td>
+</tr>
+<tr class="detailrow1">
+<td/>
+<td>
+<p id="N65768" style="display: none;">
+<a href="#DLS_DEAD_LOCAL_STORE">Bug type DLS_DEAD_LOCAL_STORE (click for details)</a>
+<br/>In class ImprovedStackImplTests<br/>In method ImprovedStackImplTests.removeElementsPerformance()<br/>Local variable stored in JVM register 2<br/>At ImprovedStackImplTests.java:[line 63]</p>
+</td>
+</tr>
+</table>
+<h1>
+<a name="Details">Details</a>
+</h1>
+<h2>
+<a name="DLS_DEAD_LOCAL_STORE">DLS_DEAD_LOCAL_STORE: Dead store to local variable</a>
+</h2>
+
+<p>
+This instruction assigns a value to a local variable,
+but the value is not read or used in any subsequent instruction.
+Often, this indicates an error, because the value computed is never
+used.
+</p>
+<p>
+Note that Sun's javac compiler often generates dead stores for
+final local variables.  Because FindBugs is a bytecode-based tool,
+there is no easy way to eliminate these false positives.
+</p>
+
+    
+<h2>
+<a name="SBSC_USE_STRINGBUFFER_CONCATENATION">SBSC_USE_STRINGBUFFER_CONCATENATION: Method concatenates strings using + in a loop</a>
+</h2>
+
+<p> The method seems to be building a String using concatenation in a loop.
+In each iteration, the String is converted to a StringBuffer/StringBuilder,
+   appended to, and converted back to a String.
+   This can lead to a cost quadratic in the number of iterations,
+   as the growing string is recopied in each iteration. </p>
+
+<p>Better performance can be obtained by using
+a StringBuffer (or StringBuilder in Java 1.5) explicitly.</p>
+
+<p> For example:</p>
+<pre>
+  // This is bad
+  String s = "";
+  for (int i = 0; i &lt; field.length; ++i) {
+    s = s + field[i];
+  }
+
+  // This is better
+  StringBuffer buf = new StringBuffer();
+  for (int i = 0; i &lt; field.length; ++i) {
+    buf.append(field[i]);
+  }
+  String s = buf.toString();
+</pre>
+
+    
+<h2>
+<a name="UPM_UNCALLED_PRIVATE_METHOD">UPM_UNCALLED_PRIVATE_METHOD: Private method is never called</a>
+</h2>
+
+<p> This private method is never called. Although it is
+possible that the method will be invoked through reflection,
+it is more likely that the method is never used, and should be
+removed.
+</p>
+
+</body>
+</html>
