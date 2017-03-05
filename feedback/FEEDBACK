@@ -1,4 +1,41 @@
 Please see the general comments, some of which are applicable to your submission.
 The output of the various checking tools should be paid attention to although checkstyle is a little "aggressive".
 
-...
+Going forward try to make appropriate use of packages. E.g., for the
+specification, implementations, and tests.
+
+Even in tests make appropriate use of constants
+
+private void populateStack(){
+       //populate Stack
+       populateStack(100);
+   }
+
+In StackImpl
+
+public StackImpl(List list){
+        super(list);
+        if(super.internalList == null)
+            super.internalList = new ArrayList();
+    }
+
+if the list is null then it is passed to the superclass. Should the superclass
+deal with null situations or is it more appropriate here?
+
+Javadoc in interfaces should be referenced in the implementations via "@see"
+or similar. Also, add comments for people trying to understand your code (where
+appropriate).
+
+SampleableList - make use of appropriate constants rather than "magic numbers",
+e.g.,
+
+for(int i = 0; i < super.size(); i+=2){
+            list.add(super.get(i).getReturnValue());
+        }
+
+In ReturnObjectImpl take out the commented out code. In general don't leave in
+commented out code - what is its purpose?
+
+ListTest is empty? If there isn't anything meaningful in a class/file then remove it.
+
+Good attempt.
