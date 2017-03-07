@@ -22,7 +22,7 @@ public StackImpl(List list){
 if the list is null then it is passed to the superclass. Should the superclass
 deal with null situations or is it more appropriate here?
 
-Javadoc in interfaces should be referenced in the implementations via "@see"
+Javadoc in interfaces should be referenced in the implementations via "@inheritDoc"
 or similar. Also, add comments for people trying to understand your code (where
 appropriate).
 
